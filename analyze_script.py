@@ -70,11 +70,11 @@ class Supres(Values):
             """
             If the price of the asset is increasing for the last before_candle_count and decreasing for
             the last after_candle_count, then return True. Otherwise, return False
-            :param candle_value: The price data for the asset
-            :param candle_index: The index of the first bar in the support
-            :param before_candle_count: The number of bars back you want to look
-            :param after_candle_count: The number of bars in the second trend
-            :return: True if the price of the price is supported by the previous low price, False if it is not
+            candle_value: The price data for the asset
+            candle_index: The index of the first bar in the support
+            before_candle_count: The number of bars back you want to look
+            after_candle_count: The number of bars in the second trend
+            True if the price of the price is supported by the previous low price, False if it is not
             """
             try:
                 for current_value in range(candle_index - before_candle_count + 1, candle_index + 1):
@@ -91,11 +91,11 @@ class Supres(Values):
             """
             If the price of the stock is increasing for the last before_candle_count and decreasing for the last
             after_candle_count, then return True. Otherwise, return False
-            :param candle_value: The price data for the asset
-            :param candle_index: The index of the first candlestick in the resistance
-            :param before_candle_count: The number of candlesticks back you want to analyze
-            :param after_candle_count: The number of candlesticks after the can
-            :return: True if the price has been increasing for the last n1 periods and decreasing for the n2 periods
+            candle_value: The price data for the asset
+            candle_index: The index of the first candlestick in the resistance
+            before_candle_count: The number of candlesticks back you want to analyze
+            after_candle_count: The number of candlesticks after the can
+            True if the price has been increasing for the last n1 periods and decreasing for the n2 periods
             """
             try:
                 for current_value in range(candle_index - before_candle_count + 1, candle_index + 1):
@@ -112,8 +112,8 @@ class Supres(Values):
             """
             Uptrend Fibonacci Retracement Formula =>
             Fibonacci Price Level = High Price - (High Price - Low Price)*Fibonacci Level
-            :param high_price: High price for the current price level
-            :param low_price: Low price for the period
+            high_price: High price for the current price level
+            low_price: Low price for the period
             """
             for multiplier in fibonacci_multipliers:
                 retracement_levels_uptrend = low_price + (high_price - low_price) * multiplier
@@ -173,7 +173,7 @@ class Supres(Values):
             """
             Find the support and resistance levels for a given asset
             sensitivity:1 is recommended for daily charts or high frequency trade scalping
-            :param sens: sensitivity parameter default:2, level of detail 1-2-3 can be given to function
+            sens: sensitivity parameter default:2, level of detail 1-2-3 can be given to function
             """
             for sens_row in range(3, len(df) - 1):
                 if support(df, sens_row, 3, sens):
@@ -435,14 +435,12 @@ def frame_select(kline: str) -> tuple[str | int, str]:
 
 def hist_data():
     """
-    The function is used to get historical data from the Binance API and write it to a csv file
+    Get historical data from the Binance API and write it to a csv file
     """
-
     def historical_data_write(ticker_symbol):
         """
         Write the historical data to a csv file
         """
-
         def write_candlesticks():
             csv_file_w = open(file_name, "w", newline='')
             klines_writer = csv.writer(csv_file_w, delimiter=",")
@@ -454,11 +452,11 @@ def hist_data():
 
         def final_csv():
             df = pd.read_csv(file_name)
-            # Reversing the order of the dataframe
+            # Revers the order of the dataframe
             df = df.iloc[::-1]
             df.to_csv(file_name, header=header_list, index=False)
             df = pd.read_csv(file_name)
-            # Converting the unix time to a readable date format for today
+            # Convert the unix time to a readable date format for today
             date = pd.to_datetime(df['unix'], unit='ms')
             df.insert(1, 'date', date)
             del df['volume'], df['close time'], df['taker buy vol'], df['taker buy quote vol'], df['ignore'], \
@@ -490,7 +488,7 @@ if __name__ == "__main__":
     try:
         perf = time.perf_counter()
         hist_data()
-        if os.path.isfile(file_name):  # Check .csv file is there or not
+        if os.path.isfile(file_name):  # Check .csv file exists
             print(f"{file_name} downloaded and created.")
             Supres.main(file_name, time_frame)
             remove(file_name)
