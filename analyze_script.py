@@ -1,13 +1,14 @@
+import csv
 import os
+import sys
 import time
 from dataclasses import dataclass
+from datetime import datetime, timedelta
 import pandas as pd
 import pandas_ta.momentum as ta
 import plotly.graph_objects as go
-from plotly.subplots import make_subplots
-import csv
 from binance import Client
-from datetime import datetime, timedelta
+from plotly.subplots import make_subplots
 
 
 @dataclass
@@ -471,9 +472,9 @@ def hist_data():
 
 
 if __name__ == "__main__":
-    os.chdir("../binance-alarm")  # Change the directory to the main_supres folder
-    print("Ticker and Time Frame:")  # Example:"BTCUSDT 1H", "ETHBTC 3D", "BNBUSDT 15M"
-    ticker, frame_s = str(input().upper()).split()
+    os.chdir("../binance-alarm")  # Change the directory to the binance-alarm folder
+    ticker = sys.argv[1]  # Pair
+    frame_s = sys.argv[2]  # Timeframe
     time_frame = frame_select(frame_s)[0]
     # Creating a client object that is used to interact with the Binance API
     client = Client("", "")
