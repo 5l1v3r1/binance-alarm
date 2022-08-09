@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=9" />
+  <title>SUPRES</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='../static/styles.css') }}" />
+</head>
+
+<body style="background-color:#525a5b;">
+
+    <div class="left-side">
+
+      Ticker Price<br>
+      btcusdt:20000<br>
+      ethusdt:20000<br>
+      etcusdt:20000<br>
+
+
+    <table>
+      <tr>
+        <th>Ticker</th>
+        <th>Price</th>
+      </tr>
+      <tr>
+        <td>BTCUSDT</td>
+        <td>20000</td>
+      </tr>
+      <tr>
+        <td>ETHUSDT</td>
+        <td>1000</td>
+      </tr>
+    </table>
+
+    </div>
+
+    <div class="middle-side">
+      <form action="/run_script/" method="POST">
+        <br>
+        <form autocomplete="off" action="/action_page.php">
+          <div class="autocomplete" style="width:200px;">
+
+            <label for="myInput"></label><input id="myInput" type="text" name="ticker" placeholder="Ticker" autocomplete="off">
+          </div>
+
+          <div class="custom-select" style="width:200px;">
+
+            <label for="tf"></label><select name="timeframe" id="tf" required>
+
+              <option hidden disabled selected>Time Frame</option>
+              <option value="1M">1M</option>
+              <option value="3M">3M</option>
+              <option value="5M">5M</option>
+              <option value="15M">15M</option>
+              <option value="30M">30M</option>
+              <option value="1H">1H</option>
+              <option value="2H">2h</option>
+              <option value="4H">4H</option>
+              <option value="6H">6H</option>
+              <option value="8H">8H</option>
+              <option value="12H">12H</option>
+              <option value="1D">1D</option>
+              <option value="3D">3D</option>
+            </select>
+          </div>
+          <input class="analyze-button" type="submit" value="Analyze">
+        </form>
+      </form>
+    </div>
+
+    <div class="right-side">
+      <br>
+      <form action="/alarm/" method="POST">
+
+        <form autocomplete="off" action="/action_page.php">
+          <div class="autocomplete" style="width:200px;">
+            <label>
+              <input id="myInput1" type="text" name="ticker" placeholder="Ticker" autocomplete="off">
+            </label>
+            </div>
+            <br> <br>
+          <div class="autocomplete" style="width:200px;">
+            <label>
+              <input type="text" name="alarm-price" placeholder="Alarm Price">
+            </label>
+            </div>
+
+          <br>
+          <input class="analyze-button" type="submit" name="action" value="Add">
+          <br>
+          <input class="analyze-button" type="submit" name="action" value="Remove">
+
+        </form>
+      </form>
+      <br>
+    </div>
+<!--    <table>-->
+<!--      <tr>-->
+<!--        <th>Ticker</th>-->
+<!--        <th>Price</th>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <td>BTCUSDT</td>-->
+<!--        <td>20000</td>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <td>ETHUSDT</td>-->
+<!--        <td>1000</td>-->
+<!--      </tr>-->
+<!--    </table>-->
+<table>
+      <tr>
+
+      </tr>
+      <tr>
+        <td>BTCUSDT</td>
+        <td>20000</td>
+      </tr>
+      <tr>
+        <td>ETHUSDT</td>
+        <td>1000</td>
+      </tr>
+    </table>
+
+</body>
+<script src="{{url_for('static', filename='alarm.js')}}"></script>
+</html>
