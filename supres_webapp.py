@@ -12,12 +12,11 @@ app = Flask(__name__, template_folder='templates', static_folder='static')
 
 @app.route('/')
 def index():
-    return render_template('hello.html')
-
-
-@app.route('/deneme/')
-def deneme():
-    return render_template('deneme.html')
+    db_pandas.create_db()
+    alarm_table = db_pandas.get_alarms()
+    coins = alarm_table.keys()
+    alarms = alarm_table.values()
+    return render_template('alarm_page.html', coins=coins, alarms=alarms)
 
 
 @app.route('/run_script/', methods=['POST'])
@@ -37,9 +36,12 @@ def add_remove():
         db_pandas.add_alarm_data(ticker.upper(), float(alarm_price))
     elif request.form['action'] == 'Remove':
         db_pandas.remove_alarm_cell(ticker.upper(), float(alarm_price))
-    return redirect(url_for('index'))
-
-
+    elif request.form['action'] == 'Remove All':
+        db_pandas.remove_all_alarms(ticker.upper())
+    alarm_table = db_pandas.get_alarms()
+    coins = alarm_table.keys()
+    alarms = alarm_table.values()
+    return render_template('alarm_page.html', coins=coins, alarms=alarms)
 
 
 @app.route('/usage')
