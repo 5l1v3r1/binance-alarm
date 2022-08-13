@@ -9,15 +9,7 @@
 </head>
 
 <body style="background-color:#ffffff;">
-
 <div class="left-side">
-
-	Ticker Price<br>
-	btcusdt:20000<br>
-	ethusdt:20000<br>
-	etcusdt:20000<br>
-
-
 	<table>
 		<tr>
 			<th>Ticker</th>
@@ -25,12 +17,56 @@
 		</tr>
 		<tr>
 			<td>BTCUSDT</td>
-			<td>20000</td>
+			<td id="btc-price">---</td>
 		</tr>
 		<tr>
 			<td>ETHUSDT</td>
-			<td>1000</td>
+			<td id="eth-price">---</td>
 		</tr>
+		<tr>
+			<td>BNBUSDT</td>
+			<td id="bnb-price">---</td>
+		</tr>
+		<tr>
+			<td>SOLUSDT</td>
+			<td id="sol-price">---</td>
+		</tr>
+		<tr>
+			<td>AVAXUSDT</td>
+			<td id="avax-price">---</td>
+		</tr>
+		<tr>
+			<td>NEARUSDT</td>
+			<td id="near-price">---</td>
+		</tr>
+		<tr>
+			<td>ATOMUSDT</td>
+			<td id="atom-price">---</td>
+		</tr>
+
+		<tr>
+			<td>DOTUSDT</td>
+			<td id="dot-price">---</td>
+		</tr>
+
+		<tr>
+			<td>APEUSDT</td>
+			<td id="ape-price">---</td>
+		</tr>
+		<tr>
+			<td>MANAUSDT</td>
+			<td id="mana-price">---</td>
+		</tr>
+		<tr>
+			<td>SANDUSDT</td>
+			<td id="sand-price">---</td>
+		</tr>
+
+		<tr>
+			<td>GMTUSDT</td>
+			<td id="gmt-price">---</td>
+		</tr>
+
 	</table>
 
 </div>
@@ -130,8 +166,7 @@
 		{% endfor %}
 	</table>
 </div>
-
-
 </body>
 <script src="{{url_for('static', filename='alarm.js')}}"></script>
+<script src="../static/binance_livedata.js"></script>
 </html>
