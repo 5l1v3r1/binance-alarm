@@ -1,6 +1,7 @@
-let ws1 = new WebSocket('wss://stream.binance.com:9443/ws/btcusdt@trade/ethusdt@trade/bnbusdt@trade' +
+let ws1 = new WebSocket('wss://stream.binance.com:9443/ws/bnbusdt@trade' +
     '/solusdt@trade/avaxusdt@trade/dotusdt@trade/apeusdt@trade/manausdt@trade/' +
     'sandusdt@trade/gmtusdt@trade/atomusdt@trade/nearusdt@trade');
+let ws_btc_eth = new WebSocket('wss://stream.binance.com:9443/ws/btcusdt@trade/ethusdt@trade')
 
 let btc_priceElement = document.getElementById('btc-price');
 let eth_priceElement = document.getElementById('eth-price');
@@ -29,16 +30,15 @@ let atom_lastPrice = null;
 let gmt_lastPrice = null;
 
 
-
-ws1.onmessage = (event) => {
-    let data = JSON.parse(event.data);
-    if (data.s === 'BTCUSDT') {
-        let btc_price = parseFloat(data.p).toFixed(2);
-        btc_priceElement.innerText = parseFloat(data.p).toFixed(2);
+ws_btc_eth.onmessage = (event) => {
+    let data_btc_eth = JSON.parse(event.data);
+    if (data_btc_eth.s === 'BTCUSDT') {
+        let btc_price = parseFloat(data_btc_eth.p).toFixed(2);
+        btc_priceElement.innerText = parseFloat(data_btc_eth.p).toFixed(2);
         if (btc_lastPrice !== null) {
-            if (btc_price - btc_lastPrice > 1.5) {
+            if (btc_price - btc_lastPrice > 1) {
                 btc_priceElement.style.color = 'red';
-            } else if (btc_price - btc_lastPrice < -1.5) {
+            } else if (btc_price - btc_lastPrice < -1) {
                 btc_priceElement.style.color = 'green';
             } else {
                 btc_priceElement.style.color = 'black';
@@ -46,12 +46,15 @@ ws1.onmessage = (event) => {
         }
         btc_lastPrice = btc_price;
     }
-    if (data.s === 'ETHUSDT') {
-        let eth_price = parseFloat(data.p).toFixed(2);
-        eth_priceElement.innerText = parseFloat(data.p).toFixed(2);
+    if (data_btc_eth.s === 'ETHUSDT') {
+        let eth_price = parseFloat(data_btc_eth.p).toFixed(2);
+        eth_priceElement.innerText = parseFloat(data_btc_eth.p).toFixed(2);
         eth_priceElement.style.color = !eth_lastPrice || eth_lastPrice === eth_price ? '#000000' : eth_price > eth_lastPrice ? '#4aea06' : '#e70000';
         eth_lastPrice = eth_price;
-    }
+    }}
+
+ws1.onmessage = (event) => {
+    let data = JSON.parse(event.data);
     if (data.s === 'BNBUSDT') {
         let bnb_price = parseFloat(data.p).toFixed(1);
         bnb_priceElement.innerText = parseFloat(data.p).toFixed(1);
@@ -70,9 +73,6 @@ ws1.onmessage = (event) => {
         avax_priceElement.style.color = !avax_lastPrice || avax_lastPrice === avax_price ? '#000000' : avax_price > avax_lastPrice ? '#4AEA06FF' : '#e70000';
         avax_lastPrice = avax_price;
     }
-
-
-
     if (data.s === 'APEUSDT') {
         let ape_price = parseFloat(data.p).toFixed(4);
         ape_priceElement.innerText = parseFloat(data.p).toFixed(4);
@@ -98,24 +98,21 @@ ws1.onmessage = (event) => {
         sand_priceElement.style.color = !sand_lastPrice || sand_lastPrice === sand_price ? '#000000' : sand_price > sand_lastPrice ? '#4AEA06FF' : '#e70000';
         sand_lastPrice = sand_price;
     }
-
-
     if (data.s === 'GMTUSDT') {
         let gmt_price = parseFloat(data.p).toFixed(4);
         gmt_priceElement.innerText = parseFloat(data.p).toFixed(4);
         gmt_priceElement.style.color = !gmt_lastPrice || gmt_lastPrice === gmt_price ? '#000000' : gmt_price > gmt_lastPrice ? '#4AEA06FF' : '#e70000';
         gmt_lastPrice = gmt_price;
     }
-
     if (data.s === 'ATOMUSDT') {
-        let atom_price = parseFloat(data.p).toFixed(4);
-        atom_priceElement.innerText = parseFloat(data.p).toFixed(4);
+        let atom_price = parseFloat(data.p).toFixed(3);
+        atom_priceElement.innerText = parseFloat(data.p).toFixed(3);
         atom_priceElement.style.color = !atom_lastPrice || atom_lastPrice === atom_price ? '#000000' : atom_price > atom_lastPrice ? '#4AEA06FF' : '#e70000';
         atom_lastPrice = atom_price;
     }
     if (data.s === 'NEARUSDT') {
-        let near_price = parseFloat(data.p).toFixed(4);
-        near_priceElement.innerText = parseFloat(data.p).toFixed(4);
+        let near_price = parseFloat(data.p).toFixed(3);
+        near_priceElement.innerText = parseFloat(data.p).toFixed(3);
         near_priceElement.style.color = !near_lastPrice || near_lastPrice === near_price ? '#000000' : near_price > near_lastPrice ? '#4AEA06FF' : '#e70000';
         near_lastPrice = near_price;
     }
@@ -124,6 +121,9 @@ ws1.onmessage = (event) => {
 
 setInterval(() => {
     ws1.send('pong');
+}, 1000 * 60 * 7);  //ping every 7 minutes
+setInterval(() => {
+    ws_btc_eth.send('pong');
 }, 1000 * 60 * 7);  //ping every 7 minutes
 
 
