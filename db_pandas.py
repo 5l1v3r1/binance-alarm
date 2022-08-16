@@ -133,20 +133,6 @@ def get_alarms():
     return alarm_dict
 
 
-def price_alert(self: str):
-    price = float(get_live_price(self))
-    alarm = get_alarms()[self][1]
-    print(price)
-    print(alarm)
-    above = min([i for i in alarm if price < i])
-    below = max([i for i in alarm if price > i])
-    above_diff = abs((price - above) / above * 100)
-    below_diff = abs((price - below) / below * 100)
-    print(f"{self}: {price=}, above alarm: {above}. {above_diff:.2f}% above")
-    print(f"{self}: {price}, below alarm {below}. {below_diff:.2f}% below")
-
-
-price_alert('BTCUSDT')
 
 # TESTING
 # create_db()
