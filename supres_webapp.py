@@ -1,16 +1,13 @@
-import sys
 import subprocess
-import os
 from binance.client import Client
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 import db_pandas
-import pandas as pd
 
 client = Client("", "")
-app = Flask(__name__, template_folder='templates', static_folder='static')
+flask_app = Flask(__name__, template_folder='templates', static_folder='static')
 
 
-@app.route('/')
+@flask_app.route('/')
 def index():
     db_pandas.create_db()
     alarm_table = db_pandas.get_alarms()
@@ -19,7 +16,7 @@ def index():
     return render_template('alarm_page.html', coins=coins, alarms=alarms)
 
 
-@app.route('/run_script/', methods=['POST'])
+@flask_app.route('/run_script/', methods=['POST'])
 def run_script():
     ticker = request.form['ticker']
     time_frame = request.form['timeframe']
@@ -28,7 +25,7 @@ def run_script():
     return redirect(url_for('index'))
 
 
-@app.route('/alarm/', methods=['POST'])
+@flask_app.route('/alarm/', methods=['POST'])
 def add_remove():
     ticker = request.form['ticker']
     alarm_price = request.form['alarm-price']
@@ -44,10 +41,10 @@ def add_remove():
     return render_template('alarm_page.html', coins=coins, alarms=alarms)
 
 
-@app.route('/usage')
+@flask_app.route('/usage')
 def usage():
     return 'Usage about bot'
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    flask_app.run(debug=True)
