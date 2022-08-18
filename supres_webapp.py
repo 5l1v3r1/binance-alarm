@@ -1,6 +1,7 @@
 import subprocess
+
 from binance.client import Client
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for
 import db_pandas
 
 client = Client("", "")
