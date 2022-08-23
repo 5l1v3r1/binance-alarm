@@ -1,5 +1,4 @@
 import subprocess
-
 from binance.client import Client
 from flask import Flask, render_template, request, redirect, url_for
 import db_pandas
@@ -36,6 +35,12 @@ def add_remove():
         db_pandas.remove_alarm_cell(ticker.upper(), float(alarm_price))
     elif request.form['action'] == 'Remove All':
         db_pandas.remove_all_alarms(ticker.upper())
+    elif request.form['action'] == 'Alarm tracker start':
+        #subprocess.run(f"python ../binance-alarm/alarm_alert.py", cwd="../binance-alarm", shell=True)
+        pass
+    elif request.form['action'] == 'Alarm tracker stop':
+        pass
+
     alarm_table = db_pandas.get_alarms()
     coins = alarm_table.keys()
     alarms = alarm_table.values()
