@@ -17,7 +17,7 @@
 		</tr>
 		<tr>
 			<td>BTCUSDT</td>
-			<td id="btc-price">---</td>
+			<td id="btc-price" style="width: 90px">---</td>
 		</tr>
 		<tr>
 			<td>ETHUSDT</td>
@@ -69,8 +69,15 @@
 
 	</table>
 
-</div>
 
+	<form action="/run_alarm_script/" method="POST">
+		<br>
+		<input class="analyze-button" type="submit" name="action" value="Alarm tracker start">
+		<br>
+		<input class="analyze-button" type="submit" name="action" value="Alarm tracker stop">
+		<br>
+	</form>
+</div>
 <div class="middle-side">
 	<form action="/run_script/" method="POST">
 		<br>
@@ -81,9 +88,7 @@
 			</div>
 
 			<div class="custom-select" style="width:200px;">
-
 				<label for="tf"></label><select name="timeframe" id="tf" required>
-
 				<option hidden disabled selected>Time Frame</option>
 				<option value="1M">1M</option>
 				<option value="3M">3M</option>
@@ -105,10 +110,10 @@
 	</form>
 </div>
 
+
 <div class="right-side">
 	<br>
 	<form action="/alarm/" method="POST">
-
 		<form autocomplete="off" action="/action_page.php">
 			<div class="autocomplete" style="width:200px;">
 				<label>
@@ -133,6 +138,7 @@
 	</form>
 	<br>
 </div>
+
 
 <div class = "alarm-table" style="display: inline-block;padding-left: 10px">
 	<table style="float: left;border-collapse:separate;">
