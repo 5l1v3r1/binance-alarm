@@ -33,7 +33,7 @@ def alert_dict():
             all_data[symbol] = {'alarm_count': alarm_count, 'alarms': alarms, 'price': price,
                                 'closest_alarm': closest_alarm, 'percentage_difference': percentage_difference}
             now = datetime.now()
-            postponed_alert = now + timedelta(minutes=3)
+            postponed_alert = now + timedelta(minutes=2)
             if symbol in sent_alerts:
                 if now - sent_alerts[symbol]['postponed_alert'] < timedelta(minutes=3):
                     continue
