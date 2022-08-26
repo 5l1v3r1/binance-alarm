@@ -120,11 +120,11 @@ ws1.onmessage = (event) => {
 
 
 setInterval(() => {
-    ws1.send('pong');
-}, 1000 * 60 * 7);  //ping every 7 minutes
+    ws1.send('ping');
+}, 1000 * 60 * 2);  //ping every 2 minutes
 setInterval(() => {
-    ws_btc_eth.send('pong');
-}, 1000 * 60 * 7);  //ping every 7 minutes
+    ws_btc_eth.send('ping');
+}, 1000 * 60 * 2);  //ping every 2 minutes
 
 
 
