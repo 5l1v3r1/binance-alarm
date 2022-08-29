@@ -3,8 +3,6 @@ let ws1 = new WebSocket('wss://stream.binance.com:9443/ws/bnbusdt@trade' +
     'sandusdt@trade/gmtusdt@trade/atomusdt@trade/nearusdt@trade');
 let ws_btc_eth = new WebSocket('wss://stream.binance.com:9443/ws/btcusdt@trade/ethusdt@trade')
 
-ws_btc_eth.send('{"method":"SUBSCRIBE","params":["BTCUSDT@ticker","ETHUSDT@ticker"],"id":1}');
-ws1.send('{"method":"SUBSCRIBE","params":["BNBUSDT@ticker","SOLUSDT@ticker","AVAXUSDT@ticker","APEUSDT@ticker","DOTUSDT@ticker","MANAUSDT@ticker","SANDUSDT@ticker","GMTUSDT@ticker","ATOMUSDT@ticker","NEARUSDT@ticker"],"id":1}');
 
 let btc_priceElement = document.getElementById('btc-price');
 let eth_priceElement = document.getElementById('eth-price');
@@ -129,5 +127,7 @@ setInterval(() => {
     ws_btc_eth.send('ping');
 }, 1000 * 60 * 2);  //ping every 2 minutes
 
+ws_btc_eth.send('{"method":"SUBSCRIBE","params":["BTCUSDT@ticker","ETHUSDT@ticker"],"id":1}');
+ws1.send('{"method":"SUBSCRIBE","params":["BNBUSDT@ticker","SOLUSDT@ticker","AVAXUSDT@ticker","APEUSDT@ticker","DOTUSDT@ticker","MANAUSDT@ticker","SANDUSDT@ticker","GMTUSDT@ticker","ATOMUSDT@ticker","NEARUSDT@ticker"],"id":1}');
 
 
