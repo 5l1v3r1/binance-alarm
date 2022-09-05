@@ -57,5 +57,6 @@ def alert_dict():
                                        'alarm': closest_alarm}
     # return all_data
 
-
+    #return pid of process
+    #return os.getpid()
 alert_dict()
