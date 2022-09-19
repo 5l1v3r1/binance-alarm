@@ -7,6 +7,10 @@ client = Client("", "")
 flask_app = Flask(__name__, template_folder='templates', static_folder='static')
 
 
+def kill_process(pid):
+    subprocess.Popen(f'taskkill /F /PID {pid}', shell=True)
+
+
 @flask_app.route('/')
 def index():
     db_pandas.create_db()
@@ -35,16 +39,27 @@ def add_remove():
         db_pandas.remove_alarm_cell(ticker.upper(), float(alarm_price))
     elif request.form['action'] == 'Remove All':
         db_pandas.remove_all_alarms(ticker.upper())
-    elif request.form['action'] == 'Alarm tracker start':
-        #subprocess.run(f"python ../binance-alarm/alarm_alert.py", cwd="../binance-alarm", shell=True)
-        pass
-    elif request.form['action'] == 'Alarm tracker stop':
-        pass
 
     alarm_table = db_pandas.get_alarms()
     coins = alarm_table.keys()
     alarms = alarm_table.values()
     return render_template('landing_page.html', coins=coins, alarms=alarms)
+
+
+@flask_app.route('/run_alarm_script/', methods=['POST'])
+def run_alarm_script():
+    if request.form['action'] == 'Alarm tracker start':
+        subprocess.run(f"python ../binance-alarm/alarm_alert.py", cwd="../binance-alarm", shell=True)
+    return redirect(url_for('index'))
+
+
+@flask_app.route('/stop_alarm_script/', methods=['POST'])
+def stop_alarm_script():
+    if request.form['action'] == 'Alarm tracker stop':
+        with open("pid.txt", "r") as file:
+            pid = file.readline()
+        kill_process(pid)
+    return redirect(url_for('index'))
 
 
 @flask_app.route('/usage')
