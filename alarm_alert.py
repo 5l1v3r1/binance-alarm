@@ -2,6 +2,10 @@ import pandas as pd
 from binance.client import Client
 from winotify import Notification, audio
 from datetime import datetime, timedelta
+import os
+
+with open('pid.txt', 'w') as f:
+    f.write(str(os.getpid()))
 
 alarm_list = 'alarm1', 'alarm2', 'alarm3', 'alarm4', 'alarm5', \
              'alarm6', 'alarm7', 'alarm8', 'alarm9', 'alarm10', \
@@ -55,8 +59,6 @@ def alert_dict():
                             f"difference: {percentage_difference}\n")
                 sent_alerts[symbol] = {'time': now, 'postponed_alert': postponed_alert, 'price': price,
                                        'alarm': closest_alarm}
-    # return all_data
 
-    #return pid of process
-    #return os.getpid()
+
 alert_dict()
