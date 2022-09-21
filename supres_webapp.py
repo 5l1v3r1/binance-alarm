@@ -2,6 +2,7 @@ import subprocess
 from binance.client import Client
 from flask import Flask, render_template, request, redirect, url_for
 import db_pandas
+import os
 
 client = Client("", "")
 flask_app = Flask(__name__, template_folder='templates', static_folder='static')
@@ -59,6 +60,7 @@ def stop_alarm_script():
         with open("pid.txt", "r") as file:
             pid = file.readline()
         kill_process(pid)
+        os.remove("pid.txt")
     return redirect(url_for('index'))
 
 
