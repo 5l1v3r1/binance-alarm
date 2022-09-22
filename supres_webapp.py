@@ -1,9 +1,9 @@
+import os
 import subprocess
 from binance.client import Client
 from flask import Flask, render_template, request, redirect, url_for
 import db_pandas
 import os
-
 client = Client("", "")
 flask_app = Flask(__name__, template_folder='templates', static_folder='static')
 
@@ -11,6 +11,11 @@ flask_app = Flask(__name__, template_folder='templates', static_folder='static')
 def kill_process(pid):
     subprocess.Popen(f'taskkill /F /PID {pid}', shell=True)
 
+
+def get_alarm_alert_script_pid_number():
+    with open('pid.txt', 'r') as f:
+        pid = f.read()
+    return pid
 
 @flask_app.route('/')
 def index():
@@ -49,6 +54,9 @@ def add_remove():
 
 @flask_app.route('/run_alarm_script/', methods=['POST'])
 def run_alarm_script():
+    if os.path.exists('pid.txt'):
+        kill_process(get_alarm_alert_script_pid_number())
+        os.remove('pid.txt')
     if request.form['action'] == 'Alarm tracker start':
         subprocess.run(f"python ../binance-alarm/alarm_alert.py", cwd="../binance-alarm", shell=True)
     return redirect(url_for('index'))
@@ -56,11 +64,11 @@ def run_alarm_script():
 
 @flask_app.route('/stop_alarm_script/', methods=['POST'])
 def stop_alarm_script():
+    if not os.path.exists('pid.txt'):
+        return redirect(url_for('index'))
     if request.form['action'] == 'Alarm tracker stop':
-        with open("pid.txt", "r") as file:
-            pid = file.readline()
-        kill_process(pid)
-        os.remove("pid.txt")
+        kill_process(get_alarm_alert_script_pid_number())
+        os.remove('pid.txt')
     return redirect(url_for('index'))
 
 
