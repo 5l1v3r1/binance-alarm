@@ -9,6 +9,7 @@ import pandas_ta.momentum as ta
 import plotly.graph_objects as go
 from binance import Client
 from plotly.subplots import make_subplots
+import db_pandas
 
 
 @dataclass
@@ -243,6 +244,15 @@ class Supres(Values):
                                          low=df['low'],
                                          close=df['close']), row=1, col=1)
             fig.update_layout(annotations=[watermark_layout])
+            highest_price = df['high'].max()
+            lowest_price = df['low'].min()
+            alarms = db_pandas.get_alarms()[ticker][1]
+            if len(alarms) > 0:
+                for alarm in alarms:
+                    if alarm > highest_price or alarm < lowest_price:
+                        continue
+                    fig.add_hline(y=alarm, line_width=2, line_color="black", annotation_text="Alarm",
+                                  annotation_position="top left")
 
         def add_volume_subplot() -> None:
             fig.add_trace(go.Bar(x=df['date'][:-1].dt.strftime(x_date), y=df['Volume USDT'], name="Volume USDT",
