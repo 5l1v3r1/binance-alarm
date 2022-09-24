@@ -102,10 +102,7 @@ input[type=submit] {
     border-color: #b0aaaa;
     width: 150px;
     height: 50px;
-    margin-left: 20px;
-    margin-right: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px auto 10px 20px;
 
 }
 
@@ -117,10 +114,7 @@ input[type=submit] {
     border-color: #838383;
     width: 150px;
     height: 50px;
-    margin-left: 20px;
-    margin-right: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px auto 10px 20px;
 }
 
 .analyze-button:focus {
@@ -131,10 +125,7 @@ input[type=submit] {
     border-color: #838383;
     width: 150px;
     height: 50px;
-    margin-left: 20px;
-    margin-right: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px auto 10px 20px;
 }
 
 /*timeframe*/
