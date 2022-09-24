@@ -87,9 +87,10 @@
 
 				<label for="myInput"></label><input id="myInput" type="text" name="ticker" placeholder="Ticker" autocomplete="off">
 			</div>
-
+			<br><br>
 			<div class="custom-select" style="width:200px;">
-				<label for="tf"></label><select name="timeframe" id="tf" required>
+				<label for="tf"></label>
+				<select name="timeframe" id="tf" required>
 				<option hidden disabled selected>Time Frame</option>
 				<option value="1M">1M</option>
 				<option value="3M">3M</option>
@@ -106,6 +107,18 @@
 				<option value="3D">3D</option>
 			</select>
 			</div>
+			<br>
+			<div class="custom-select" style="width:200px;">
+				<label for="sensitivity-option"></label>
+				<select name="sensitivity" id="sensitivity-option" required>
+				<option hidden disabled selected>Sensitivity</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+
+			</select>
+			</div>
+			<br>
 			<input class="analyze-button" type="submit" value="Analyze">
 		</form>
 	</form>

@@ -15,15 +15,16 @@ from plotly.subplots import make_subplots
 class Values:
     ticker_csv: str
     selected_timeframe: str
+    selected_sensitivity: int
 
     def __post_init__(self):
         self.ticker_csv = self.ticker_csv.upper()
-        self.selected_timeframe = self.selected_timeframe.lower()
+        self.selected_timeframe = self.selected_timeframe.upper()
 
 
 class Supres(Values):
     @staticmethod
-    def main(ticker_csv, selected_timeframe, candle_count=254):
+    def main(ticker_csv, selected_timeframe, sens=2, candle_count=254):
         print(f"Start main function in {time.perf_counter() - perf} seconds\n"
               f"{ticker_csv} data analysis in progress.")
         df = pd.read_csv(ticker_csv, delimiter=',', encoding="utf-8-sig", index_col=False, nrows=candle_count,
@@ -170,7 +171,7 @@ class Supres(Values):
                 pattern_find_func(df.iloc[item])
             return pattern_list
 
-        def sensitivity(sens=2) -> tuple[list, list]:
+        def sensitivity() -> tuple[list, list]:
             """
             Find the support and resistance levels for a given asset
             sensitivity:1 is recommended for daily charts or high frequency trade scalping
@@ -438,10 +439,12 @@ def hist_data():
     """
     Get historical data from the Binance API and write it to a csv file
     """
+
     def historical_data_write(ticker_symbol):
         """
         Write the historical data to a csv file
         """
+
         def write_candlesticks():
             csv_file_w = open(file_name, "w", newline='')
             klines_writer = csv.writer(csv_file_w, delimiter=",")
@@ -473,8 +476,9 @@ def hist_data():
 
 if __name__ == "__main__":
     os.chdir("../binance-alarm")  # Change the directory to the binance-alarm folder
-    ticker = sys.argv[1]  # Pair
-    frame_s = sys.argv[2]  # Timeframe
+    ticker = sys.argv[1].upper()  # Pair
+    frame_s = sys.argv[2].upper()  # Timeframe
+    selected_sensitivity = int(sys.argv[3].upper())  # Sensitivity
     time_frame = frame_select(frame_s)[0]
     # Creating a client object that is used to interact with the Binance API
     client = Client("", "")
@@ -491,7 +495,7 @@ if __name__ == "__main__":
         hist_data()
         if os.path.isfile(file_name):  # Check .csv file exists
             print(f"{file_name} downloaded and created.")
-            Supres.main(file_name, time_frame)
+            Supres.main(file_name, time_frame, selected_sensitivity)
             remove(file_name)
         else:
             raise print("One or more issues caused the download to fail. "

@@ -30,8 +30,9 @@ def index():
 def run_script():
     ticker = request.form['ticker']
     time_frame = request.form['timeframe']
+    sensitivity = request.form['sensitivity']
     subprocess.run(f"python ../binance-alarm/analyze_script.py {ticker.upper()} "
-                   f"{time_frame.upper()}", cwd="../binance-alarm", shell=True)
+                   f"{time_frame.upper()} {sensitivity}", cwd="../binance-alarm", shell=True)
     return redirect(url_for('index'))
 
 
