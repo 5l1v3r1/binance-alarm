@@ -4,6 +4,7 @@ from binance.client import Client
 from flask import Flask, render_template, request, redirect, url_for
 import db_pandas
 import os
+
 client = Client("", "")
 flask_app = Flask(__name__, template_folder='templates', static_folder='static')
 
@@ -16,6 +17,7 @@ def get_alarm_alert_script_pid_number():
     with open('pid.txt', 'r') as f:
         pid = f.read()
     return pid
+
 
 @flask_app.route('/')
 def index():
@@ -31,8 +33,9 @@ def run_script():
     ticker = request.form['ticker']
     time_frame = request.form['timeframe']
     sensitivity = request.form['sensitivity']
+    candle_count = request.form['candle_count']
     subprocess.run(f"python ../binance-alarm/analyze_script.py {ticker.upper()} "
-                   f"{time_frame.upper()} {sensitivity}", cwd="../binance-alarm", shell=True)
+                   f"{time_frame.upper()} {sensitivity} {candle_count}", cwd="../binance-alarm", shell=True)
     return redirect(url_for('index'))
 
 

@@ -16,6 +16,7 @@ class Values:
     ticker_csv: str
     selected_timeframe: str
     selected_sensitivity: int
+    data_length: int
 
     def __post_init__(self):
         self.ticker_csv = self.ticker_csv.upper()
@@ -24,10 +25,10 @@ class Values:
 
 class Supres(Values):
     @staticmethod
-    def main(ticker_csv, selected_timeframe, sens=2, candle_count=254):
+    def main(ticker_csv, selected_timeframe, sens=2, data_length=254):
         print(f"Start main function in {time.perf_counter() - perf} seconds\n"
               f"{ticker_csv} data analysis in progress.")
-        df = pd.read_csv(ticker_csv, delimiter=',', encoding="utf-8-sig", index_col=False, nrows=candle_count,
+        df = pd.read_csv(ticker_csv, delimiter=',', encoding="utf-8-sig", index_col=False, nrows=data_length,
                          keep_default_na=False)
         df = df.iloc[::-1]
         df['date'] = pd.to_datetime(df['date'], format="%Y-%m-%d")
@@ -411,20 +412,20 @@ def remove(csv_filename):
         print(f"{csv_filename} does not exist.")
 
 
-def frame_select(kline: str) -> tuple[str | int, str]:
-    frame_select_dict = {"1M": [Client.KLINE_INTERVAL_1MINUTE, -260],
-                         "3M": [Client.KLINE_INTERVAL_3MINUTE, -780],
-                         "5M": [Client.KLINE_INTERVAL_5MINUTE, -1300],
-                         "15M": [Client.KLINE_INTERVAL_15MINUTE, -3900],
-                         "30M": [Client.KLINE_INTERVAL_30MINUTE, -7800],
-                         "1H": [Client.KLINE_INTERVAL_1HOUR, -260],
-                         "2H": [Client.KLINE_INTERVAL_2HOUR, -520],
-                         "4H": [Client.KLINE_INTERVAL_4HOUR, -1040],
-                         "6H": [Client.KLINE_INTERVAL_6HOUR, -1560],
-                         "8H": [Client.KLINE_INTERVAL_8HOUR, -2080],
-                         "12H": [Client.KLINE_INTERVAL_12HOUR, -15],
-                         "1D": [Client.KLINE_INTERVAL_1DAY, -260],
-                         "3D": [Client.KLINE_INTERVAL_3DAY, -780]}
+def frame_select(kline: str, candle_count) -> tuple[str | int, str]:
+    frame_select_dict = {"1M": [Client.KLINE_INTERVAL_1MINUTE, -candle_count],
+                         "3M": [Client.KLINE_INTERVAL_3MINUTE, -candle_count * 3],
+                         "5M": [Client.KLINE_INTERVAL_5MINUTE, -candle_count * 5],
+                         "15M": [Client.KLINE_INTERVAL_15MINUTE, -candle_count * 15],
+                         "30M": [Client.KLINE_INTERVAL_30MINUTE, -candle_count * 30],
+                         "1H": [Client.KLINE_INTERVAL_1HOUR, -candle_count],
+                         "2H": [Client.KLINE_INTERVAL_2HOUR, -candle_count * 2],
+                         "4H": [Client.KLINE_INTERVAL_4HOUR, -candle_count * 4],
+                         "6H": [Client.KLINE_INTERVAL_6HOUR, -candle_count * 6],
+                         "8H": [Client.KLINE_INTERVAL_8HOUR, -candle_count * 8],
+                         "12H": [Client.KLINE_INTERVAL_12HOUR, -candle_count * 12],
+                         "1D": [Client.KLINE_INTERVAL_1DAY, -candle_count],
+                         "3D": [Client.KLINE_INTERVAL_3DAY, -candle_count * 3]}
     start_date = datetime.now()
     last_letter = frame_select_dict[kline][0][-1].upper()
     kline_interval = frame_select_dict[kline][1]
@@ -478,13 +479,14 @@ if __name__ == "__main__":
     os.chdir("../binance-alarm")  # Change the directory to the binance-alarm folder
     ticker = sys.argv[1].upper()  # Pair
     frame_s = sys.argv[2].upper()  # Timeframe
-    selected_sensitivity = int(sys.argv[3].upper())  # Sensitivity
-    time_frame = frame_select(frame_s)[0]
+    selected_sensitivity = int(sys.argv[3])  # Sensitivity
+    candle_count = int(sys.argv[4])
+    time_frame = frame_select(frame_s, candle_count)[0]
     # Creating a client object that is used to interact with the Binance API
     client = Client("", "")
     has_pair = any(ticker == i.get('symbol') for i in client.get_all_tickers())  # Check pair is in Binance API
     print('Pair found in Binance API.' if has_pair else 'Pair not found in Binance API.')
-    start = frame_select(frame_s)[1]
+    start = frame_select(frame_s, candle_count)[1]
     file_name = ticker + ".csv"
     symbol_data = client.get_symbol_info(ticker)
     header_list = ('unix', 'open', 'high', 'low', 'close', 'volume', 'close time', 'Volume USDT', 'tradecount',
@@ -495,7 +497,7 @@ if __name__ == "__main__":
         hist_data()
         if os.path.isfile(file_name):  # Check .csv file exists
             print(f"{file_name} downloaded and created.")
-            Supres.main(file_name, time_frame, selected_sensitivity)
+            Supres.main(file_name, time_frame, selected_sensitivity, candle_count)
             remove(file_name)
         else:
             raise print("One or more issues caused the download to fail. "
