@@ -491,12 +491,11 @@ if __name__ == "__main__":
     frame_s = sys.argv[2].upper()  # Timeframe
     selected_sensitivity = int(sys.argv[3])  # Sensitivity
     candle_count = int(sys.argv[4])
-    time_frame = frame_select(frame_s, candle_count)[0]
+    time_frame, start = frame_select(frame_s, candle_count)
     # Creating a client object that is used to interact with the Binance API
     client = Client("", "")
     has_pair = any(ticker == i.get('symbol') for i in client.get_all_tickers())  # Check pair is in Binance API
     print('Pair found in Binance API.' if has_pair else 'Pair not found in Binance API.')
-    start = frame_select(frame_s, candle_count)[1]
     file_name = ticker + ".csv"
     symbol_data = client.get_symbol_info(ticker)
     header_list = ('unix', 'open', 'high', 'low', 'close', 'volume', 'close time', 'Volume USDT', 'tradecount',
