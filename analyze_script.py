@@ -251,7 +251,7 @@ class Supres(Values):
                 for alarm in alarms:
                     if alarm > highest_price or alarm < lowest_price:
                         continue
-                    fig.add_hline(y=alarm, line_width=2, line_color="black", annotation_text="Alarm",
+                    fig.add_hline(y=alarm, line_width=2, line_color="black", annotation_text=f"Alarm {alarm}",
                                   annotation_position="top left")
 
         def add_volume_subplot() -> None:
