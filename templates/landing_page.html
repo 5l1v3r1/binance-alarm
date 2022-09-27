@@ -66,6 +66,10 @@
 			<td>GMTUSDT</td>
 			<td id="gmt-price">---</td>
 		</tr>
+		<tr>
+			<td>SHIBUSDT</td>
+			<td id="shib-price">---</td>
+		</tr>
 	</table>
 
 
@@ -150,7 +154,7 @@
 			<br> <br>
 			<div class="autocomplete" style="width:200px;">
 				<label>
-					<input type="text" name="alarm-price" placeholder="Alarm Price">
+					<input id="alarm-price" autocomplete="off" type="text" name="alarm-price" placeholder="Alarm Price">
 				</label>
 			</div>
 
@@ -194,7 +198,7 @@
 		</tr>
 		{% for alarm in alarms %}
 		<tr>
-			<td> {{ alarm[1]|join(', ') }} </td>
+			<td> <a>{{ alarm[1]|join(', ') }} </a></td>
 		</tr>
 		{% endfor %}
 	</table>
