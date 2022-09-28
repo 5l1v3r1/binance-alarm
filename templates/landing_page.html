@@ -193,12 +193,12 @@
 		{% endfor %}
 	</table>
 	<table style="float: left;border-collapse:separate;">
-		<tr>
-			<th>Alarms</th>
-		</tr>
 		{% for alarm in alarms %}
 		<tr>
-			<td> <a>{{ alarm[1]|join(', ') }} </a></td>
+			{% for price in alarm[1] %}
+			<td> <button type="button" id="price-{{ loop.index0 }}-{{ price }}">{{ price }} </button></td>
+			{% endfor %}
+
 		</tr>
 		{% endfor %}
 	</table>
