@@ -32,3 +32,11 @@ ws1.addEventListener('open', () => {
         ws1.send('ping');
     }, 30000);
 });
+
+function fill_ticker_price(alarm,id) {
+    document.getElementById("alarm-price").value=alarm;
+    let coin_name = document.getElementById("coin-names").rows[id].innerText;
+    console.log(coin_name)
+    document.getElementById("myInput1").value = coin_name.replace(/\s+/g, '');
+
+}

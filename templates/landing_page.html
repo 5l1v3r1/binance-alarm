@@ -172,36 +172,55 @@
 
 
 <div class = "alarm-table" style="display: inline-block;padding-left: 10px">
-	<table style="float: left;border-collapse:separate;">
+	<table id="coin-names" style="float: left;border-collapse:separate;">
 		<tr>
-			<th>Coins</th>
+			<th id="header-coins">Coins</th>
 		</tr>
 		<tr>
 			{% for coin in coins %}
-			<td> {{ coin }} </td>
+			<td  id="{{ coin }}"> {{ coin }} </td>
 		</tr>
 		{% endfor %}
+
 	</table>
 	<table style="float: left;border-collapse:separate; text-align: center;margin-left: 1px;margin-right: 1px">
 		<tr>
-			<th> Alarm Count </th>
+			<th> Alarms </th>
 		</tr>
-		{% for count in alarms %}
-		<tr>
-			<td > {{ count[0] }} </td>
-		</tr>
-		{% endfor %}
-	</table>
-	<table style="float: left;border-collapse:separate;">
 		{% for alarm in alarms %}
 		<tr>
-			{% for price in alarm[1] %}
-			<td> <button type="button" id="price-{{ loop.index0 }}-{{ price }}">{{ price }} </button></td>
-			{% endfor %}
+			<td> {{ alarm[0] }} </td>
+			{% set id_loop = loop.index %}
+				{% for price in alarm[1] %}
+			<td>
+<!--				<form action="/removealarm_fromtable/" method="POST">-->
+<!--			<form autocomplete="off" action="/action_page.php">-->
+<!--			<input id="alarm" type="submit" name="action" value="{{ price }}"></form></form></td>-->
+				<button onclick="fill_ticker_price(this.value, id)" id="{{ id_loop }}" type="button" name="action" value="{{ price }}"> {{ price }} </button>
+				{% endfor %}
+
+			</td>
 
 		</tr>
 		{% endfor %}
 	</table>
+<!--	<table style="float: left;border-collapse:separate;">-->
+<!--		<tr>-->
+<!--			<th> Alarms </th>-->
+<!--		</tr>-->
+<!--		{% for alarm in alarms %}-->
+<!--		<tr>-->
+<!--			{% for price in alarm[1] %}-->
+<!--			<td>-->
+<!--&lt;!&ndash;				<form action="/removealarm_fromtable/" method="POST">&ndash;&gt;-->
+<!--&lt;!&ndash;			<form autocomplete="off" action="/action_page.php">&ndash;&gt;-->
+<!--&lt;!&ndash;			<input id="alarm" type="submit" name="action" value="{{ price }}"></form></form></td>&ndash;&gt;-->
+<!--				<button onclick="fill_ticker_price(this.value, id)" id="{{ price }}" type="button" name="action" value="{{ price }}"> {{ price }} </button>-->
+<!--			{% endfor %}-->
+<!--<td> <button type="button" id="price-{{ loop.index0 }}-{{ price }}">{{ price }} </button></td>-->
+<!--		</tr>-->
+<!--		{% endfor %}-->
+<!--	</table>-->
 </div>
 </body>
 <script src="{{url_for('static', filename='alarm.js')}}"></script>
