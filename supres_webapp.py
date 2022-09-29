@@ -56,6 +56,18 @@ def add_remove():
     return render_template('landing_page.html', coins=coins, alarms=alarms)
 
 
+@flask_app.route('/remove_alert/', methods=['POST'])
+def remove_alert():
+    data = request.get_json()
+    ticker = data['ticker']
+    alarm_price = data['price']
+    db_pandas.remove_alarm_cell(ticker.upper(), float(alarm_price))
+    alarm_table = db_pandas.get_alarms()
+    coins = alarm_table.keys()
+    alarms = alarm_table.values()
+    return render_template('landing_page.html', coins=coins, alarms=alarms)
+
+
 @flask_app.route('/run_alarm_script/', methods=['POST'])
 def run_alarm_script():
     if os.path.exists('pid.txt'):

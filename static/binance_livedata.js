@@ -38,5 +38,25 @@ function fill_ticker_price(alarm,id) {
     let coin_name = document.getElementById("coin-names").rows[id].innerText;
     console.log(coin_name)
     document.getElementById("myInput1").value = coin_name.replace(/\s+/g, '');
-
+    remove_alert(coin_name, alarm);
 }
+
+function remove_alert(ticker, price){
+    //create alert if user want to remove coinname and price from alerts
+    let alert = confirm("Do you want to remove " + ticker + " : " + price + " from alerts?");
+    if (alert === true) {
+        console.log("remove " + ticker + " from alerts");
+        //send post request to remove coinname and price from alerts
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "/remove_alert/", true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+            "ticker": ticker,
+            "price": price
+        }));
+        location.reload();
+    }
+
+    else {
+        console.log("do nothing");
+    }}
