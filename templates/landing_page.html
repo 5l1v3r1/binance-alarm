@@ -157,7 +157,6 @@
 					<input id="alarm-price" autocomplete="off" type="text" name="alarm-price" placeholder="Alarm Price">
 				</label>
 			</div>
-
 			<br>
 			<input class="analyze-button" type="submit" name="action" value="Add">
 			<br>
@@ -193,34 +192,12 @@
 			{% set id_loop = loop.index %}
 				{% for price in alarm[1] %}
 			<td>
-<!--				<form action="/removealarm_fromtable/" method="POST">-->
-<!--			<form autocomplete="off" action="/action_page.php">-->
-<!--			<input id="alarm" type="submit" name="action" value="{{ price }}"></form></form></td>-->
 				<button onclick="fill_ticker_price(this.value, id)" id="{{ id_loop }}" type="button" name="action" value="{{ price }}"> {{ price }} </button>
 				{% endfor %}
-
 			</td>
-
 		</tr>
 		{% endfor %}
 	</table>
-<!--	<table style="float: left;border-collapse:separate;">-->
-<!--		<tr>-->
-<!--			<th> Alarms </th>-->
-<!--		</tr>-->
-<!--		{% for alarm in alarms %}-->
-<!--		<tr>-->
-<!--			{% for price in alarm[1] %}-->
-<!--			<td>-->
-<!--&lt;!&ndash;				<form action="/removealarm_fromtable/" method="POST">&ndash;&gt;-->
-<!--&lt;!&ndash;			<form autocomplete="off" action="/action_page.php">&ndash;&gt;-->
-<!--&lt;!&ndash;			<input id="alarm" type="submit" name="action" value="{{ price }}"></form></form></td>&ndash;&gt;-->
-<!--				<button onclick="fill_ticker_price(this.value, id)" id="{{ price }}" type="button" name="action" value="{{ price }}"> {{ price }} </button>-->
-<!--			{% endfor %}-->
-<!--<td> <button type="button" id="price-{{ loop.index0 }}-{{ price }}">{{ price }} </button></td>-->
-<!--		</tr>-->
-<!--		{% endfor %}-->
-<!--	</table>-->
 </div>
 </body>
 <script src="{{url_for('static', filename='alarm.js')}}"></script>
