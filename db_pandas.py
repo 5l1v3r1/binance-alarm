@@ -57,13 +57,11 @@ def add_alarm_data(self: str, alarm: float):
                             continue
                         else:
                             return print(f"{self}: {alarm} is already exist in alarm_data.")
-
             if coin_dict[i] == 0:
                 alarm_db.at[coin.index[0], i] = alarm
                 alarm_db.at[coin.index[0], 'alarm_count'] += 1
                 alarm_db.to_csv('alarm_data.csv', index=False)
                 return print(f"{self}: {alarm} added")
-
             if coin_dict[i] != 0:
                 continue
 
