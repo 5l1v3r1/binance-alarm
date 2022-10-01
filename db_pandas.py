@@ -47,12 +47,16 @@ def add_alarm_data(self: str, alarm: float):
     coin_dict = alarm_db[alarm_db['symbol'] == self].to_dict('records')[0]
     if alarm_db.at[coin.index[0], 'symbol'] == self:
         for i in alarm_list:
-
             if 0 not in coin_dict.values():  # TODO: if alarms are full, throw error
                 print("All alarms are full. Try to remove one alarm to add new one.")
                 continue
             if alarm in coin_dict.values():
-                return print(f"{self}: {alarm} is already exist in alarm_data")
+                for idx in alarm_list:
+                    if coin_dict[idx] == alarm:
+                        if idx == 'alarm1':
+                            continue
+                        else:
+                            return print(f"{self}: {alarm} is already exist in alarm_data.")
 
             if coin_dict[i] == 0:
                 alarm_db.at[coin.index[0], i] = alarm
@@ -131,8 +135,6 @@ def get_alarms():
         alarms.sort()
         alarm_dict[symbol] = alarm_count, alarms
     return alarm_dict
-
-
 
 # TESTING
 # create_db()
