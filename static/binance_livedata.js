@@ -41,6 +41,12 @@ function fill_ticker_price(alarm,id) {
     remove_alert(coin_name, alarm);
 }
 
+function fill_ticker(ticker) {
+    document.getElementById("myInput1").value=ticker;
+    document.getElementById("myInput").value=ticker;
+
+}
+
 function remove_alert(ticker, price){
     //create alert if user want to remove coinname and price from alerts
     let alert = confirm("Do you want to remove " + ticker + " : " + price + " from alerts?");

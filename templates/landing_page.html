@@ -177,7 +177,9 @@
 		</tr>
 		<tr>
 			{% for coin in coins %}
-			<td  id="{{ coin }}"> {{ coin }} </td>
+			<td>
+			<button onclick="fill_ticker(this.value, id)" id="{{ coin }}" type="button" name="action" value="{{ coin }}"> {{ coin }} </button>
+		</td>
 		</tr>
 		{% endfor %}
 
