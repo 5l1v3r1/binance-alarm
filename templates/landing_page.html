@@ -10,7 +10,7 @@
 
 <body style="background-color:#ffffff;">
 <div class="left-side">
-	<table>
+	<table class="left-side-table-inside">
 		<tr>
 			<th>Ticker</th>
 			<th>Price</th>
@@ -192,7 +192,7 @@
 
 
 <div class = "alarm-table" style="display: inline-block;padding-left: 10px">
-	<table id="coin-names" style="float: left;border-collapse:separate;">
+	<table  class="right-table" id="coin-names" style="float: left;border-collapse:separate;">
 		<tr>
 			<th id="header-coins">Coins</th>
 		</tr>
@@ -201,12 +201,10 @@
 			<td>
 			<button class="remove-alarm-button" onclick="fill_ticker(this.value, id)" id="{{ coin }}" type="button" name="action" value="{{ coin }}"> {{ coin }} </button>
 <!--			<td id="{{ coin }}-approximation">-&#45;&#45;</td>-->
-
 		</tr>
 		{% endfor %}
-
 	</table>
-	<table style="float: left;border-collapse:separate; text-align: center;margin-left: 1px;margin-right: 1px">
+	<table  class="right-table" style="float: left;border-collapse:separate; text-align: center;margin-left: 1px;margin-right: 1px">
 		<tr>
 			<th> Alarms </th>
 		</tr>

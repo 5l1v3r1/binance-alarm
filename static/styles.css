@@ -190,13 +190,24 @@ input[type=submit] {
 }
 
 table {
-    border: 1px black solid;
+    /*border: 1px lightslategray solid;*/
     font: 16px sans-serif;
 }
 
-td {
-    border: 1px black solid;
+td.left-table-inside {
+    border: 1px gray solid;
     padding: 10px;
+
+}
+table.left-side-table-inside td {
+        border: 1px gray solid;
+        padding: 10px;
+    }
+
+
+table.right-table {
+     border: 1px gray solid;
+    padding: 0;
 }
 
 .remove-alarm-button {
