@@ -198,3 +198,43 @@ td {
     border: 1px black solid;
     padding: 10px;
 }
+
+.remove-alarm-button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 14px;
+  padding: 10px;
+  width: 100px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.remove-alarm-button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.remove-alarm-button span:after {
+  content: '\0078';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.remove-alarm-button:hover span {
+  padding-right: 25px;
+}
+
+.remove-alarm-button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
