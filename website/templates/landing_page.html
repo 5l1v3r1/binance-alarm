@@ -214,7 +214,7 @@
 			{% set id_loop = loop.index %}
 				{% for price in alarm[1] %}
 			<td>
-				<button class="remove-alarm-button" style="vertical-align:middle" onclick="fill_ticker_price(this.value, id)" id="{{ id_loop }}" type="button" name="action" value="{{ price }}"><span> {{ price }} </span></button>
+				<button class="remove-alarm-button" style="vertical-align:middle" title="remove {{ price }}" onclick="fill_ticker_price(this.value, id)" id="{{ id_loop }}" type="button" name="action" value="{{ price }}"><span> {{ price }} </span></button>
 				{% endfor %}
 			</td>
 		</tr>
