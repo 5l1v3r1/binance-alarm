@@ -61,6 +61,7 @@ function remove_alert(ticker, price){
             "price": price
         }));
         location.reload();
+        return false;
     }
 
     else {
