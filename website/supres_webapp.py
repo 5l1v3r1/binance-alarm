@@ -6,7 +6,7 @@ import db_pandas
 import os
 
 client = Client("", "")
-flask_app = Flask(__name__, template_folder='templates', static_folder='static')
+flask_app = Flask(__name__, template_folder='../website/templates', static_folder='../website/static')
 
 
 def kill_process(pid):
@@ -14,7 +14,7 @@ def kill_process(pid):
 
 
 def get_alarm_alert_script_pid_number():
-    with open('pid.txt', 'r') as f:
+    with open('../website/pid.txt', 'r') as f:
         pid = f.read()
     return pid
 
@@ -34,8 +34,8 @@ def run_script():
     time_frame = request.form['timeframe']
     sensitivity = request.form['sensitivity']
     candle_count = request.form['candle_count']
-    subprocess.run(f"python ../binance-alarm/analyze_script.py {ticker.upper()} "
-                   f"{time_frame.upper()} {sensitivity} {candle_count}", cwd="../binance-alarm", shell=True)
+    subprocess.run(f"python ../website/analyze_script.py {ticker.upper()} "
+                   f"{time_frame.upper()} {sensitivity} {candle_count}", cwd="../website", shell=True)
     return redirect(url_for('index'))
 
 
@@ -74,7 +74,7 @@ def run_alarm_script():
         kill_process(get_alarm_alert_script_pid_number())
         os.remove('pid.txt')
     if request.form['action'] == 'Alarm tracker start':
-        subprocess.run(f"python ../binance-alarm/alarm_alert.py", cwd="../binance-alarm", shell=True)
+        subprocess.run(f"python ../website/alarm_alert.py", cwd="../website/", shell=True)
     return redirect(url_for('index'))
 
 

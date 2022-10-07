@@ -486,7 +486,10 @@ def hist_data():
 
 
 if __name__ == "__main__":
-    os.chdir("../binance-alarm")  # Change the directory to the binance-alarm folder
+    #get path
+    path = os.path.dirname(os.path.abspath(__file__))
+    print("Path:", path)
+    os.chdir(path)  # Change the directory to the binance-alarm folder
     ticker = sys.argv[1].upper()  # Pair
     frame_s = sys.argv[2].upper()  # Timeframe
     selected_sensitivity = int(sys.argv[3])  # Sensitivity

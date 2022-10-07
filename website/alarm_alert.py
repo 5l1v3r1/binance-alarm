@@ -4,7 +4,7 @@ from winotify import Notification, audio
 from datetime import datetime, timedelta
 import os
 
-with open('pid.txt', 'w') as f:
+with open('../website/pid.txt', 'w') as f:
     f.write(str(os.getpid()))
 
 alarm_list = 'alarm1', 'alarm2', 'alarm3', 'alarm4', 'alarm5', \
