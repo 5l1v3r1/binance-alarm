@@ -486,15 +486,14 @@ def hist_data():
 
 
 if __name__ == "__main__":
-    #get path
     path = os.path.dirname(os.path.abspath(__file__))
     print("Path:", path)
     os.chdir(path)  # Change the directory to the binance-alarm folder
     ticker = sys.argv[1].upper()  # Pair
     frame_s = sys.argv[2].upper()  # Timeframe
     selected_sensitivity = int(sys.argv[3])  # Sensitivity
-    candle_count = int(sys.argv[4])
-    time_frame, start = frame_select(frame_s, candle_count)
+    candle_count_chart_length = int(sys.argv[4])
+    time_frame, start = frame_select(frame_s, candle_count_chart_length)
     # Creating a client object that is used to interact with the Binance API
     client = Client("", "")
     has_pair = any(ticker == i.get('symbol') for i in client.get_all_tickers())  # Check pair is in Binance API
@@ -509,7 +508,7 @@ if __name__ == "__main__":
         hist_data()
         if os.path.isfile(file_name):  # Check .csv file exists
             print(f"{file_name} downloaded and created.")
-            Supres.main(file_name, time_frame, selected_sensitivity, candle_count)
+            Supres.main(file_name, time_frame, selected_sensitivity, candle_count_chart_length)
             remove(file_name)
         else:
             raise print("One or more issues caused the download to fail. "
