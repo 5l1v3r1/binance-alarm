@@ -88,10 +88,5 @@ def stop_alarm_script():
     return redirect(url_for('index'))
 
 
-@flask_app.route('/usage')
-def usage():
-    return 'Usage about bot'
-
-
 if __name__ == '__main__':
     flask_app.run(debug=True)
