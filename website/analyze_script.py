@@ -162,13 +162,12 @@ class Supres(Values):
                     pattern_find.append(col)
                 for pattern in pattern_row:
                     if pattern == 'pattern_found':
-                        # even pattern, odd date
                         pattern_list.append(pattern_find[t])
                         pattern_list.append(pattern_row['date'].strftime('%b-%d-%y'))
                     t += 1
                 return pattern_list
 
-            # Loop through the dataframe and find the pattern in the dataframe
+            # Loop through the dataframe to find the pattern in the dataframe
             for item in range(-3, -30, -1):
                 pattern_find_func(df.iloc[item])
             return pattern_list
@@ -176,7 +175,7 @@ class Supres(Values):
         def sensitivity() -> tuple[list, list]:
             """
             Find the support and resistance levels for a given asset
-            sensitivity:1 is recommended for daily charts or high frequency trade scalping
+            sensitivity: 1 is recommended for daily charts or high frequency trade scalping
             sens: sensitivity parameter default:2, level of detail 1-2-3 can be given to function
             """
             for sens_row in range(3, len(df) - 1):
