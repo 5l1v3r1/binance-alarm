@@ -103,7 +103,7 @@ def remove_alarm_cell(self: str, alarm: float):
 
 def remove_all_alarms(self: str):
     """
-    Remove all alarms from the dataframe
+    Remove all alarms from the dataframe for specific coin
     """
     alarm_db = pd.read_csv('alarm_data.csv')
     coin = alarm_db.loc[alarm_db['symbol'] == self, ['symbol']]
