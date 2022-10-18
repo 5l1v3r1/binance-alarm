@@ -1,4 +1,7 @@
-
+.round{
+    border-radius: 10px;
+    border-collapse: collapse;
+}
 .left-side {
     float: left;
     display: inline-block;
@@ -30,7 +33,6 @@
     border-color: #838383;
     width: auto;
     height: auto;
-
 }
 
 
@@ -139,6 +141,8 @@ input[type=submit] {
 
 .select-selected {
     background-color: #459de3;
+    border-radius: 10px;
+    border-collapse: collapse;
 }
 
 
@@ -222,7 +226,7 @@ table.right-table {
   width: 100px;
   transition: all 0.5s;
   cursor: pointer;
-  margin: 5px -3px 5px 0;
+  margin: 5px 0px 5px 3px;
 }
 
 .remove-all-alarm-button {
