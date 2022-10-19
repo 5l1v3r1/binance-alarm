@@ -182,9 +182,10 @@
 		</tr>
 		<tr>
 			{% for coin in coins %}
+			{% set id_loop = loop.index %}
 			<td>
-			<button class="remove-alarm-button" onclick="fill_ticker(this.value, id)" id="{{ coin }}" type="button" name="action" value="{{ coin }}"> {{ coin }} </button>
-<!--			<td id="{{ coin }}-approximation">-&#45;&#45;</td>-->
+			<button class="remove-alarm-button" onclick="fill_ticker(this.value, id)" id="{{id_loop}}" type="button" name="action" value="{{ coin }}"> {{ coin }} </button>
+<!--			<td id="{{ coin }}-approximation">---</td>-->
 		</tr>
 		{% endfor %}
 	</table>
@@ -193,12 +194,14 @@
 			<th> Alarms </th>
 		</tr>
 		{% for alarm in alarms %}
-		<tr>
+		<tr class="{{ alarm }}">
 			<td> {{ alarm[0] }} </td>
 			{% set id_loop = loop.index %}
 				{% for price in alarm[1] %}
 			<td>
-				<button class="remove-alarm-button" style="vertical-align:middle" title="remove {{ price }}" onclick="fill_ticker_price(this.value, id)" id="{{ id_loop }}" type="button" name="action" value="{{ price }}"><span> {{ price }} </span></button>
+				<button class="remove-alarm-button" style="vertical-align:middle" title="remove {{ price }}"
+				        onclick="fill_ticker_price(this.value, id)" id="{{ id_loop }}" type="button" name="action"
+				        value="{{ price }}"><span> {{ price }} </span></button>
 				{% endfor %}
 			</td>
 		</tr>

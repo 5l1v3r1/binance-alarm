@@ -141,7 +141,7 @@ input[type=submit] {
 
 .select-selected {
     background-color: #459de3;
-    border-radius: 10px;
+    border-radius: 20px;
     border-collapse: collapse;
 }
 
