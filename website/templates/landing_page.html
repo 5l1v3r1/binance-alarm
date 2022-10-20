@@ -89,8 +89,7 @@
 		<br>
 		<form autocomplete="off" action="/action_page.php">
 			<div class="autocomplete" style="width:200px;">
-
-				<label for="myInput"></label><input id="myInput" type="text" name="ticker" placeholder="Ticker" autocomplete="off">
+				<label for="myInput"></label><input id="myInput" type="text" name="ticker" placeholder="Ticker" autocomplete="off" required>
 			</div>
 			<br><br>
 			<div class="custom-select round" style="width:200px;">
@@ -137,7 +136,20 @@
 				<option value="2000">2000</option>
 			</select>
 			</div>
+			<div class="autocomplete" style="width:200px;">
+				<label for="sma1"></label><input id="sma1" type="text" name="sma1" placeholder="sma" autocomplete="off" value="50" required>
+			</div>
+			<br>
+			<div class="autocomplete" style="width:200px;">
+				<label for="sma2"></label><input id="sma2" type="text" name="sma2" placeholder="sma" autocomplete="off" value="100" required>
+			</div>
+			<br>
+			<div class="autocomplete" style="width:200px;">
+				<label for="sma3"></label><input id="sma3" type="text" name="sma3" placeholder="sma" autocomplete="off" value="200" required>
+			</div>
+			<br>
 			<input class="analyze-button round" type="submit" value="Analyze">
+
 		</form>
 	</form>
 
@@ -153,13 +165,13 @@
 		<form autocomplete="off" action="/action_page.php">
 			<div class="autocomplete" style="width:200px;">
 				<label>
-					<input id="myInput1" type="text" name="ticker" placeholder="Ticker" autocomplete="off">
+					<input id="myInput1" type="text" name="ticker" placeholder="Ticker" autocomplete="off" required>
 				</label>
 			</div>
 			<br> <br>
 			<div class="autocomplete" style="width:200px;">
 				<label>
-					<input id="alarm-price" autocomplete="off" type="text" name="alarm-price" placeholder="Alarm Price">
+					<input id="alarm-price" autocomplete="off" type="text" name="alarm-price" placeholder="Alarm Price" required>
 				</label>
 			</div>
 			<br>

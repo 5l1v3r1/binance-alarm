@@ -26,7 +26,7 @@ class Values:
 
 class Supres(Values):
     @staticmethod
-    def main(ticker_csv, selected_timeframe, sens=2, data_length=254):
+    def main(ticker_csv, selected_timeframe, sens=2, sma_1=10, sma_2=50, sma_3=100, data_length=254):
         print(f"Start main function in {time.perf_counter() - perf} seconds\n"
               f"{ticker_csv} data analysis in progress.")
         df = pd.read_csv(ticker_csv, delimiter=',', encoding="utf-8-sig", index_col=False, nrows=data_length,
@@ -50,9 +50,9 @@ class Supres(Values):
                                    Client.KLINE_INTERVAL_12HOUR)
         # Sma, Rsi, Macd, Fibonacci variables
         dfsma = df[:-1]
-        sma10 = tuple((dfsma.ta.sma(10)))
-        sma50 = tuple((dfsma.ta.sma(50)))
-        sma100 = tuple((dfsma.ta.sma(100)))
+        sma_first = tuple((dfsma.ta.sma(sma_1)))
+        sma_second = tuple((dfsma.ta.sma(sma_2)))
+        sma_third = tuple((dfsma.ta.sma(sma_3)))
         rsi = tuple((ta.rsi(df['close'][:-1])))
         support_list, resistance_list, fibonacci_uptrend, fibonacci_downtrend, pattern_list = [], [], [], [], []
         support_above, support_below, resistance_below, resistance_above, x_date = [], [], [], [], ''
@@ -347,14 +347,14 @@ class Supres(Values):
                     y=[support_list[0]], name=f"RSI         : {int(rsi[-1])}", mode="lines",
                     marker=dict(color=legend_color, size=10)))
                 # Add SMA10, SMA50, and SMA100 to the chart and legend
-                fig.add_trace(go.Scatter(x=df['date'].dt.strftime(x_date), y=sma10,
-                                         name=f"SMA10     : {float(sma10[-1]):.{str_price_len}f}",
+                fig.add_trace(go.Scatter(x=df['date'].dt.strftime(x_date), y=sma_first,
+                                         name=f"SMA{sma_1}     : {float(sma_first[-1]):.{str_price_len}f}",
                                          line=dict(color='#5c6cff', width=3)))
-                fig.add_trace(go.Scatter(x=df['date'].dt.strftime(x_date), y=sma50,
-                                         name=f"SMA50     : {float(sma50[-1]):.{str_price_len}f}",
+                fig.add_trace(go.Scatter(x=df['date'].dt.strftime(x_date), y=sma_second,
+                                         name=f"SMA{sma_2}    : {float(sma_second[-1]):.{str_price_len}f}",
                                          line=dict(color='#950fba', width=3)))
-                fig.add_trace(go.Scatter(x=df['date'].dt.strftime(x_date), y=sma100,
-                                         name=f"SMA100   : {float(sma100[-1]):.{str_price_len}f}",
+                fig.add_trace(go.Scatter(x=df['date'].dt.strftime(x_date), y=sma_third,
+                                         name=f"SMA{sma_3}   : {float(sma_third[-1]):.{str_price_len}f}",
                                          line=dict(color='#a69b05', width=3)))
                 fig.add_trace(go.Scatter(
                     y=[support_list[0]], name=f"-- Fibonacci Uptrend | Downtrend --", mode="markers",
@@ -491,7 +491,10 @@ if __name__ == "__main__":
     ticker = sys.argv[1].upper()  # Pair
     frame_s = sys.argv[2].upper()  # Timeframe
     selected_sensitivity = int(sys.argv[3])  # Sensitivity
-    candle_count_chart_length = int(sys.argv[4])
+    sma1 = int(sys.argv[4])  # SMA1
+    sma2 = int(sys.argv[5])  # SMA2
+    sma3 = int(sys.argv[6])  # SMA3
+    candle_count_chart_length = int(sys.argv[7])
     time_frame, start = frame_select(frame_s, candle_count_chart_length)
     # Creating a client object that is used to interact with the Binance API
     client = Client("", "")
@@ -507,7 +510,7 @@ if __name__ == "__main__":
         hist_data()
         if os.path.isfile(file_name):  # Check .csv file exists
             print(f"{file_name} downloaded and created.")
-            Supres.main(file_name, time_frame, selected_sensitivity, candle_count_chart_length)
+            Supres.main(file_name, time_frame, selected_sensitivity, sma1, sma2, sma3, candle_count_chart_length)
             remove(file_name)
         else:
             raise print("One or more issues caused the download to fail. "

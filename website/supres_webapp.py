@@ -34,8 +34,18 @@ def run_script():
     time_frame = request.form['timeframe']
     sensitivity = request.form['sensitivity']
     candle_count = request.form['candle_count']
+    sma_1 = request.form['sma1']
+    sma_2 = request.form['sma2']
+    sma_3 = request.form['sma3']
+    if sma_1 == '' or sma_1 > candle_count:
+        sma_1 = 50
+    if sma_2 == '' or sma_2 > candle_count:
+        sma_2 = 100
+    if sma_3 == '' or sma_3 > candle_count:
+        sma_3 = 200
     subprocess.run(f"python ../website/analyze_script.py {ticker.upper()} "
-                   f"{time_frame.upper()} {sensitivity} {candle_count}", cwd="../website", shell=True)
+                   f"{time_frame.upper()} {sensitivity} {sma_1} {sma_2} {sma_3} {candle_count}", cwd="../website",
+                   shell=True)
     return redirect(url_for('index'))
 
 
