@@ -38,7 +38,7 @@
 
 * {
     box-sizing: border-box;
-    font-family: Arial;
+    font-family: Arial, serif;
 }
 
 .autocomplete {
@@ -153,7 +153,6 @@ input[type=submit] {
     right: 10px;
     width: 0;
     height: 0;
-    border: 6px solid transparent;
     border-color: #fff transparent transparent transparent;
 }
 
@@ -169,7 +168,6 @@ input[type=submit] {
 .select-selected {
     color: #ffffff;
     padding: 8px 16px;
-    border: 1px solid transparent;
     border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
     cursor: pointer;
 }
@@ -226,7 +224,7 @@ table.right-table {
   width: 100px;
   transition: all 0.5s;
   cursor: pointer;
-  margin: 5px 0px 5px 3px;
+  margin: 5px 0 5px 3px;
 }
 
 .remove-all-alarm-button {
