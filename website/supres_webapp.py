@@ -25,7 +25,7 @@ def index():
     alarm_table = db_pandas.get_alarms()
     coins = alarm_table.keys()
     alarms = alarm_table.values()
-    return render_template('landing_page.html', coins=coins, alarms=alarms)
+    return render_template('landing_page.html', coins=coins, alarms=alarms, alarm_table=alarm_table)
 
 
 @flask_app.route('/run_script/', methods=['POST'])

@@ -35,7 +35,8 @@ ws1.addEventListener('open', () => {
 
 function fill_ticker_price(alarm,id) {
     document.getElementById("alarm-price").value=alarm;
-    let coin_name = document.getElementById("coin-names").rows[id].innerText;
+    // let coin_name = document.getElementById("coin-names").rows[id].innerText;
+     let coin_name = id
     console.log(coin_name)
     document.getElementById("myInput1").value = coin_name.replace(/\s+/g, '');
     const result = remove_alert(coin_name, alarm);

@@ -185,41 +185,26 @@
 	</form>
 	<br>
 </div>
-
-
 <div class = "alarm-table round" style="display: inline-block;padding-left: 10px">
-	<table  class="right-table round" id="coin-names" style="float: left;border-collapse:separate;">
+	<table  class="right-table round" id="coin-names-" style="float: left;border-collapse:separate;">
 		<tr>
-			<th id="header-coins">Coins</th>
+			<th id="header-coins-"> Alarms </th>
 		</tr>
 		<tr>
-			{% for coin in coins %}
-			{% set id_loop = loop.index %}
+			{% for coin,value in alarm_table.items() %}
+			{% set alarm_count = value[0] %}
+			{% set coin_alarms = value[1] %}
 			<td>
-			<button class="remove-alarm-button" onclick="fill_ticker(this.value, id)" id="{{id_loop}}" type="button" name="action" value="{{ coin }}"> {{ coin }} </button>
-<!--			<td id="{{ coin }}-approximation">---</td>-->
+			<button class="remove-alarm-button" onclick="fill_ticker(this.value, id)" type="button" title="{{ coin }}" name="action" value="{{ coin }}"> {{ coin }} </button>
+			<td><button class="alarm-count-button" style="margin-left: -15px" title="Alarm count:{{ alarm_count }}"><span>{{ alarm_count }}</span>  </button></td>
+				{% for alarm in coin_alarms %}
+			<td>
+			<button class="remove-alarm-button" style="vertical-align:middle;background: coral" title="remove {{ alarm }}"
+				        onclick="fill_ticker_price(this.value, id)" id="{{ coin }}" type="button" name="action"
+				        value="{{ alarm }}"><span> {{ alarm }} </span></button></td>{% endfor %}
 		</tr>
 		{% endfor %}
-	</table>
-	<table  class="right-table round" style="float: left;border-collapse:separate; text-align: center;margin-left: 1px;margin-right: 1px">
-		<tr>
-			<th> Alarms </th>
-		</tr>
-		{% for alarm in alarms %}
-		<tr class="{{ alarm }}">
-			<td> {{ alarm[0] }} </td>
-			{% set id_loop = loop.index %}
-				{% for price in alarm[1] %}
-			<td>
-				<button class="remove-alarm-button" style="vertical-align:middle" title="remove {{ price }}"
-				        onclick="fill_ticker_price(this.value, id)" id="{{ id_loop }}" type="button" name="action"
-				        value="{{ price }}"><span> {{ price }} </span></button>
-				{% endfor %}
-			</td>
-		</tr>
-		{% endfor %}
-	</table>
-</div>
+	</table></div>
 </body>
 <script src="{{url_for('static', filename='alarm.js')}}"></script>
 <script src="../static/binance_livedata.js"></script>
