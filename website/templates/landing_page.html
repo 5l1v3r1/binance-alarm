@@ -10,66 +10,31 @@
 
 <body style="background-color:#ffffff;">
 <div class="left-side round">
+	<div class="autocomplete" style="width:200px;">
+		<label for="fav"></label><input id="fav" type="text" name="ticker" placeholder="Ticker" autocomplete="off" required>
+	</div>
+	<form action="/add_favorite/" method="POST">
+		<br>
+		<input class="analyze-button round"  type="submit" name="action" value="Add Favourite">
+		</form>
+		<br>
+		<form action="/remove_favorite/" method="POST">
+		<input class="analyze-button round"  type="submit" name="action" value="Remove Favourite">
+		</form>
+		<br>
+
 	<table class="left-side-table-inside round">
 		<tr>
 			<th>Ticker</th>
 			<th>Price</th>
 		</tr>
-		<tr>
-			<td>BTCUSDT</td>
-			<td id="btc-price" style="width: 90px">---</td>
-		</tr>
-		<tr>
-			<td>ETHUSDT</td>
-			<td id="eth-price">---</td>
-		</tr>
-		<tr>
-			<td>BNBUSDT</td>
-			<td id="bnb-price">---</td>
-		</tr>
-		<tr>
-			<td>SOLUSDT</td>
-			<td id="sol-price">---</td>
-		</tr>
-		<tr>
-			<td>AVAXUSDT</td>
-			<td id="avax-price">---</td>
-		</tr>
-		<tr>
-			<td>NEARUSDT</td>
-			<td id="near-price">---</td>
-		</tr>
-		<tr>
-			<td>ATOMUSDT</td>
-			<td id="atom-price">---</td>
-		</tr>
 
+		{% for favs in favourite_list %}
 		<tr>
-			<td>DOTUSDT</td>
-			<td id="dot-price">---</td>
+			<td>{{ favs }}</td>
+			<td id="{{ favs.lower() }}-price">---</td>
 		</tr>
-
-		<tr>
-			<td>APEUSDT</td>
-			<td id="ape-price">---</td>
-		</tr>
-		<tr>
-			<td>MANAUSDT</td>
-			<td id="mana-price">---</td>
-		</tr>
-		<tr>
-			<td>SANDUSDT</td>
-			<td id="sand-price">---</td>
-		</tr>
-
-		<tr>
-			<td>GMTUSDT</td>
-			<td id="gmt-price">---</td>
-		</tr>
-		<tr>
-			<td>SHIBUSDT</td>
-			<td id="shib-price">---</td>
-		</tr>
+		{% endfor %}
 	</table>
 
 
@@ -196,10 +161,10 @@
 			{% set coin_alarms = value[1] %}
 			<td>
 			<button class="remove-alarm-button" onclick="fill_ticker(this.value, id)" type="button" title="{{ coin }}" name="action" value="{{ coin }}"> {{ coin }} </button>
-			<td><button class="alarm-count-button" style="margin-left: -15px" title="Alarm count:{{ alarm_count }}"><span>{{ alarm_count }}</span>  </button></td>
+			<td><button class="alarm-count-button" style="margin-left: -15px" title="Alarm count: {{ alarm_count }}"><span>{{ alarm_count }}</span>  </button></td>
 				{% for alarm in coin_alarms %}
 			<td>
-			<button class="remove-alarm-button" style="vertical-align:middle;background: coral" title="remove {{ alarm }}"
+			<button class="remove-alarm-button" style="vertical-align:middle;background: coral" title="remove: {{ coin }} {{ alarm }}"
 				        onclick="fill_ticker_price(this.value, id)" id="{{ coin }}" type="button" name="action"
 				        value="{{ alarm }}"><span> {{ alarm }} </span></button></td>{% endfor %}
 		</tr>
