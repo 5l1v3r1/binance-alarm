@@ -1,15 +1,18 @@
 const socket_string = "wss://stream.binance.com:9443/ws/";
 const fav_coin_list = [];
-const elts = document.getElementsByClassName('favorite-list');
-for (let i = 0; i < elts.length; ++i) {
-    let span_text = elts[i].innerText;
+const fav_coin_subscribe = [];
+const sub_message = '{"method":"SUBSCRIBE","params":'
+const elem_fav_list = document.getElementsByClassName('favorite-list');
+for (let i = 0; i < elem_fav_list.length; ++i) {
+    let span_text = elem_fav_list[i].innerText;
     let span_text_trade = span_text + "@trade";
+    let span_text_ticker = span_text + "@ticker";
     fav_coin_list.push(span_text_trade);
+    fav_coin_subscribe.push(span_text_ticker);
     console.log(fav_coin_list);
 }
 let fav_coin_list_string = fav_coin_list.join("/");
-console.log(fav_coin_list_string);
-console.log(socket_string + fav_coin_list_string.toLowerCase());
+let sub_message_json = sub_message + JSON.stringify(fav_coin_subscribe) + ',"id":1}';
 let ws1 = new WebSocket(socket_string + fav_coin_list_string.toLowerCase());
 
 ws1.onmessage = (event) => {
@@ -32,9 +35,7 @@ ws1.onmessage = (event) => {
         }}}
 
 
-ws1.send('{"method":"SUBSCRIBE","params":["BTCUSDT@ticker","ETHUSDT@ticker","SHIBUSDT@ticker","BNBUSDT@ticker",' +
-    '"SOLUSDT@ticker","AVAXUSDT@ticker","APEUSDT@ticker","DOTUSDT@ticker","MANAUSDT@ticker","SANDUSDT@ticker",' +
-    '"GMTUSDT@ticker","ATOMUSDT@ticker","NEARUSDT@ticker"],"id":1}');
+ws1.send(sub_message_json);
 
 ws1.addEventListener('open', () => {
     setInterval(() => {
