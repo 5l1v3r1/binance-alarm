@@ -26,7 +26,7 @@ class Values:
 
 class Supres(Values):
     @staticmethod
-    def main(ticker_csv, selected_timeframe, sens=2, sma_1=10, sma_2=50, sma_3=100, data_length=254):
+    def main(ticker_csv, selected_timeframe, sens=2, sma_1=10, sma_2=50, sma_3=100, data_length=254, rsi_subplot='Yes', volume_subplot='Yes'):
         print(f"Start main function in {time.perf_counter() - perf} seconds\n"
               f"{ticker_csv} data analysis in progress.")
         df = pd.read_csv(ticker_csv, delimiter=',', encoding="utf-8-sig", index_col=False, nrows=data_length,
@@ -396,8 +396,10 @@ class Supres(Values):
         elif selected_timeframe in historical_lowtimeframe:
             x_date = '%H:%M %d-%b'
         create_candlestick_plot()
-        add_volume_subplot()
-        add_rsi_subplot()
+        if volume_subplot == "Yes":
+            add_volume_subplot()
+        if rsi_subplot == "Yes":
+            add_rsi_subplot()
         levels()
         float_resistance_above = list(map(float, sorted(resistance_above + resistance_below)))
         float_support_below = list(map(float, sorted(support_below + support_above, reverse=True)))
@@ -495,6 +497,9 @@ if __name__ == "__main__":
     sma2 = int(sys.argv[5])  # SMA2
     sma3 = int(sys.argv[6])  # SMA3
     candle_count_chart_length = int(sys.argv[7])
+    rsi_subplot = sys.argv[8]
+    volume_subplot = sys.argv[9]
+    print(rsi_subplot, volume_subplot)
     time_frame, start = frame_select(frame_s, candle_count_chart_length)
     # Creating a client object that is used to interact with the Binance API
     client = Client("", "")
@@ -510,7 +515,7 @@ if __name__ == "__main__":
         hist_data()
         if os.path.isfile(file_name):  # Check .csv file exists
             print(f"{file_name} downloaded and created.")
-            Supres.main(file_name, time_frame, selected_sensitivity, sma1, sma2, sma3, candle_count_chart_length)
+            Supres.main(file_name, time_frame, selected_sensitivity, sma1, sma2, sma3, candle_count_chart_length, rsi_subplot, volume_subplot)
             remove(file_name)
         else:
             raise print("One or more issues caused the download to fail. "

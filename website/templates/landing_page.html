@@ -22,14 +22,16 @@
 
 	<table class="left-side-table-inside round">
 		<tr>
+			<th>Go to</th>
 			<th>Ticker</th>
 			<th>Price</th>
 		</tr>
 
 		{% for favs in favourite_list %}
 		<tr>
+			<td><a href="https://www.binance.com/en/trade/{{favs}}" target="_blank">&#9992;</a> </td>
 			<td class="favorite-list"><span class="favorite-list-coin">{{ favs }}</span></td>
-			<td id="{{ favs.lower() }}-price">---</td>
+			<td class="coin-price" id="{{ favs.lower() }}-price">----------</td>
 		</tr>
 		{% endfor %}
 	</table>
@@ -110,6 +112,22 @@
 				<label for="sma3"></label><input id="sma3" type="text" name="sma3" placeholder="sma" autocomplete="off" value="200" required>
 			</div>
 			<br>
+			<label for="rsi_subplot">
+			  RSI subplot
+			  <select id="rsi_subplot" name="rsi_subplot">
+			    <option value="Yes">Yes</option>
+			    <option value="No">No</option>
+			  </select>
+			</label>
+			<br>
+			<label for="volume_subplot">
+			  Volume subplot
+			  <select id="volume_subplot" name="volume_subplot">
+			    <option value="Yes">Yes</option>
+			    <option value="No">No</option>
+			  </select>
+			</label>
+			<br>
 			<input class="analyze-button round" type="submit" value="Analyze">
 
 		</form>
@@ -148,9 +166,9 @@
 	<br>
 </div>
 <div class = "alarm-table round" style="display: inline-block;padding-left: 10px">
-	<table  class="right-table round" id="coin-names-" style="float: left;border-collapse:separate;">
+	<table  class="right-table round" id="coin-names" style="float: left;border-collapse:separate;">
 		<tr>
-			<th id="header-coins-"> Alarms </th>
+			<th id="header-coins"> Alarms </th>
 		</tr>
 		<tr>
 			{% for coin,value in alarm_table.items() %}
@@ -163,7 +181,7 @@
 			<td>
 			<button class="remove-alarm-button" style="vertical-align:middle;background: coral" title="remove: {{ coin }} {{ alarm }}"
 				        onclick="fill_ticker_price(this.value, id)" id="{{ coin }}" type="button" name="action"
-				        value="{{ alarm }}"><span> {{ alarm }} </span></button></td>{% endfor %}
+				        value="{{ alarm }}"><span class="table-alarm" id="{{coin}}"> {{ alarm }} </span></button></td>{% endfor %}
 		</tr>
 		{% endfor %}
 	</table></div>
