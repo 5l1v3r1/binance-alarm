@@ -1,11 +1,20 @@
-let ws1 = new WebSocket('wss://stream.binance.com:9443/ws/bnbusdt@trade/shibusdt@trade' +
-    '/solusdt@trade/avaxusdt@trade/dotusdt@trade/apeusdt@trade/manausdt@trade/' +
-    'sandusdt@trade/gmtusdt@trade/atomusdt@trade/nearusdt@trade/btcusdt@trade/ethusdt@trade');
-
+const socket_string = "wss://stream.binance.com:9443/ws/";
+const fav_coin_list = [];
+const elts = document.getElementsByClassName('favorite-list');
+for (let i = 0; i < elts.length; ++i) {
+    let span_text = elts[i].innerText;
+    let span_text_trade = span_text + "@trade";
+    fav_coin_list.push(span_text_trade);
+    console.log(fav_coin_list);
+}
+let fav_coin_list_string = fav_coin_list.join("/");
+console.log(fav_coin_list_string);
+console.log(socket_string + fav_coin_list_string.toLowerCase());
+let ws1 = new WebSocket(socket_string + fav_coin_list_string.toLowerCase());
 
 ws1.onmessage = (event) => {
     let ws_data = JSON.parse(event.data);
-    let coin_list = ['BTCUSDT','ETHUSDT',"SHIBUSDT",'BNBUSDT', 'SOLUSDT', 'AVAXUSDT', 'DOTUSDT', 'APEUSDT', 'MANAUSDT', 'SANDUSDT', 'GMTUSDT', 'NEARUSDT', 'ATOMUSDT'];
+    let coin_list = coins;
     let comma_digit;
     for (let i = 0; i < coin_list.length; i++) {
         if (ws_data.s === coin_list[i]) {
