@@ -26,7 +26,8 @@ class Values:
 
 class Supres(Values):
     @staticmethod
-    def main(ticker_csv, selected_timeframe, sens=2, sma_1=10, sma_2=50, sma_3=100, data_length=254, rsi_subplot='Yes', volume_subplot='Yes'):
+    def main(ticker_csv, selected_timeframe, sens=2, sma_1=10, sma_2=50, sma_3=100, data_length=254, rsi_subplot='Yes',
+             volume_subplot='Yes'):
         print(f"Start main function in {time.perf_counter() - perf} seconds\n"
               f"{ticker_csv} data analysis in progress.")
         df = pd.read_csv(ticker_csv, delimiter=',', encoding="utf-8-sig", index_col=False, nrows=data_length,
@@ -67,8 +68,18 @@ class Supres(Values):
         watermark_layout = (dict(name="draft watermark", text="twitter.com/sup_res", textangle=-30, opacity=0.15,
                                  font=dict(color="black", size=100), xref="paper", yref="paper", x=0.5, y=0.3,
                                  showarrow=False))
-        fig = make_subplots(rows=3, cols=1, shared_xaxes=True,
-                            vertical_spacing=0, row_width=[0.1, 0.1, 0.8])
+        if rsi_subplot == 'Yes' and volume_subplot == 'No':
+            fig = make_subplots(rows=2, cols=1, shared_xaxes=True,
+                                vertical_spacing=0, row_width=[0.1, 0.9])
+        if rsi_subplot == 'No' and volume_subplot == 'Yes':
+            fig = make_subplots(rows=2, cols=1, shared_xaxes=True,
+                                vertical_spacing=0, row_width=[0.1, 0.9])
+        if rsi_subplot == 'Yes' and volume_subplot == 'Yes':
+            fig = make_subplots(rows=3, cols=1, shared_xaxes=True,
+                                vertical_spacing=0, row_width=[0.1, 0.1, 0.8])
+        if rsi_subplot == 'No' and volume_subplot == 'No':
+            fig = make_subplots(rows=1, cols=1, shared_xaxes=True,
+                                vertical_spacing=0, row_width=[1])
 
         def support(candle_value, candle_index, before_candle_count, after_candle_count) -> (bool | None):
             """
@@ -515,7 +526,8 @@ if __name__ == "__main__":
         hist_data()
         if os.path.isfile(file_name):  # Check .csv file exists
             print(f"{file_name} downloaded and created.")
-            Supres.main(file_name, time_frame, selected_sensitivity, sma1, sma2, sma3, candle_count_chart_length, rsi_subplot, volume_subplot)
+            Supres.main(file_name, time_frame, selected_sensitivity, sma1, sma2, sma3, candle_count_chart_length,
+                        rsi_subplot, volume_subplot)
             remove(file_name)
         else:
             raise print("One or more issues caused the download to fail. "

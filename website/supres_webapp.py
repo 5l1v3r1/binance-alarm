@@ -47,8 +47,11 @@ def run_script():
         sma_2 = 100
     if sma_3 == '' or sma_3 > candle_count:
         sma_3 = 200
+    rsi_subplot = request.form.get('rsi_subplot')
+    volume_subplot = request.form.get('volume_subplot')
     subprocess.run(f"python ../website/analyze_script.py {ticker.upper()} "
-                   f"{time_frame.upper()} {sensitivity} {sma_1} {sma_2} {sma_3} {candle_count}", cwd="../website",
+                   f"{time_frame.upper()} {sensitivity} {sma_1} {sma_2} {sma_3} {candle_count} {rsi_subplot} "
+                   f"{volume_subplot}", cwd="../website",
                    shell=True)
     return index()
 
