@@ -18,7 +18,7 @@ ws1.onmessage = (event) => {
             else {
                 comma_digit = 8;
             }
-            let coin_priceElement = document.getElementById(coin_list[i].toLowerCase().slice(0, -4) + '-price');
+            let coin_priceElement = document.getElementById(coin_list[i].toLowerCase() + '-price');
             coin_priceElement.innerText = parseFloat(ws_data.p).toFixed(comma_digit);
         }}}
 
@@ -67,4 +67,3 @@ function remove_alert(ticker, price){
         console.log("removed " + ticker + " from alerts");
         return true;
     }}
-

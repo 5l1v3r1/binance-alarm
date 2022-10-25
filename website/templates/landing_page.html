@@ -10,18 +10,14 @@
 
 <body style="background-color:#ffffff;">
 <div class="left-side round">
+	<form action="/favorite/" method="POST">
 	<div class="autocomplete" style="width:200px;">
-		<label for="fav"></label><input id="fav" type="text" name="ticker" placeholder="Ticker" autocomplete="off" required>
+		<label for="fav"></label><input id="fav" type="text" name="fav" placeholder="Ticker" autocomplete="off" required>
 	</div>
-	<form action="/add_favorite/" method="POST">
 		<br>
-		<input class="analyze-button round"  type="submit" name="action" value="Add Favourite">
+		<input class="analyze-button round"  type="submit" name="action" value="Add Favorite">
+		<input class="analyze-button round"  type="submit" name="action" value="Remove Favorite">
 		</form>
-		<br>
-		<form action="/remove_favorite/" method="POST">
-		<input class="analyze-button round"  type="submit" name="action" value="Remove Favourite">
-		</form>
-		<br>
 
 	<table class="left-side-table-inside round">
 		<tr>

@@ -134,6 +134,40 @@ def get_alarms():
         alarm_dict[symbol] = alarm_count, alarms
     return alarm_dict
 
+
+def create_favourite_list_csv():
+    if not os.path.exists('favourite.csv'):
+        favourite_columns = {'symbol': str()}
+        favourite_data = pd.DataFrame(columns=favourite_columns)
+        favourite_data.to_csv('favourite.csv', index=False)
+    else:
+        favourite_data = pd.read_csv('favourite.csv')
+    return favourite_data
+
+
+def add_favourite(self: str):
+    favourite_data = create_favourite_list_csv()
+    self = self.upper()
+    if self not in favourite_data['symbol'].values:
+        favourite_data = favourite_data.append({'symbol': self.upper()}, ignore_index=True)
+        favourite_data.to_csv('favourite.csv', index=False)
+        print(f"{self} added to favourite list")
+    else:
+        print(f"{self} is already in favourite list")
+
+
+def remove_favourite(self: str):
+    favourite_data = create_favourite_list_csv()
+    self = self.upper()
+    if self.upper() in favourite_data['symbol'].values:
+        favourite_data = favourite_data[favourite_data['symbol'] != self]
+        favourite_data.to_csv('favourite.csv', index=False)
+        print(f"{self} removed from favourite list")
+    else:
+        print(f"{self} is not in favourite list")
+
+# add_favourite("solusdt")
+# remove_favourite("solusdt")
 # TESTING
 # create_db()
 # get_live_price('BTCUSDT')
