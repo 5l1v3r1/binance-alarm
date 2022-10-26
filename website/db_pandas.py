@@ -38,6 +38,16 @@ def get_live_price(self: str):
     return coin.to_dict('records')[0]['price']
 
 
+def get_multiple_live_price(self: list):
+    coins = []
+    df = pd.DataFrame(Client("", "").get_all_tickers(), columns={'symbol': str(), 'price': float()})
+    for i in self:
+        coin = df.loc[df['symbol'] == i, ['symbol', 'price']]
+        coin_price = coin.to_dict('records')[0]['price']
+        coins.append(float(coin_price))
+    return coins
+
+
 def add_alarm_data(self: str, alarm: float):
     """
     If the coin exists in the dataframe, then add the alarm to the first empty alarm column
