@@ -8,6 +8,7 @@ import os
 import json
 import numpy as np
 import price_alarm_compare
+
 client = Client("", "")
 flask_app = Flask(__name__, template_folder='../website/templates', static_folder='../website/static')
 
@@ -120,11 +121,6 @@ def favorites():
         data = request.form['fav']
         db_pandas.remove_favourite(data.upper())
     return index()
-
-
-@flask_app.route('/test/', methods=['GET', 'POST'])
-def test():
-    return jsonify({'ticker': 'BTCUSDT', 'price': 1000})
 
 
 @flask_app.route('/db_alarms/', methods=['GET', 'POST'])
