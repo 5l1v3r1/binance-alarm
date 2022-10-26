@@ -75,3 +75,16 @@ function remove_alert(ticker, price){
         console.log("removed " + ticker + " from alerts");
         return true;
     }}
+
+
+function fetch_db_alarms() {
+    fetch('/db_alarms/')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            let span = document.getElementById("alerts-textarea");
+            span.innerText = JSON.stringify(data);
+        })
+    setTimeout(fetch_db_alarms, 10000);
+}
+window.onload = fetch_db_alarms;

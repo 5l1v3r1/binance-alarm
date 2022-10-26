@@ -2,12 +2,25 @@ import os
 import subprocess
 import pandas as pd
 from binance.client import Client
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 import db_pandas
 import os
-
+import json
+import numpy as np
+import price_alarm_compare
 client = Client("", "")
 flask_app = Flask(__name__, template_folder='../website/templates', static_folder='../website/static')
+
+
+class NpEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.integer):
+            return int(obj)
+        if isinstance(obj, np.floating):
+            return float(obj)
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return json.JSONEncoder.default(self, obj)
 
 
 def kill_process(pid):
@@ -107,6 +120,17 @@ def favorites():
         data = request.form['fav']
         db_pandas.remove_favourite(data.upper())
     return index()
+
+
+@flask_app.route('/test/', methods=['GET', 'POST'])
+def test():
+    return jsonify({'ticker': 'BTCUSDT', 'price': 1000})
+
+
+@flask_app.route('/db_alarms/', methods=['GET', 'POST'])
+def db_alarms():
+    all_alarms = json.dumps(price_alarm_compare.alarms_all_coins(), cls=NpEncoder)
+    return jsonify(all_alarms)
 
 
 if __name__ == '__main__':

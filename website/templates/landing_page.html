@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='../static/styles.css') }}" />
 </head>
 
-<body style="background-color:#ffffff;">
+<body style="background-color:#ffffff;" onload="fetch_db_alarms()">
 <div class="left-side round">
 	<form action="/favorite/" method="POST">
 	<div class="autocomplete" style="width:200px;">
@@ -46,6 +46,9 @@
 		<input class="analyze-button round" type="submit" name="action" value="Alarm tracker stop">
 		<br>
 	</form>
+	<label>
+		<textarea id="alerts-textarea" style="height: 100px;width: 200px">---</textarea>
+	</label>
 
 </div>
 <div class="middle-side round">
@@ -184,7 +187,6 @@
 				        value="{{ alarm }}"><span class="table-alarm" id="{{coin}}"> {{ alarm }} </span></button></td>{% endfor %}
 		</tr>
 		{% endfor %}
-	</table></div>
 </body>
 <script src="{{url_for('static', filename='alarm.js')}}"></script>
 <script src="../static/binance_livedata.js"></script>

@@ -1,4 +1,5 @@
 import db_pandas
+import datetime
 
 
 def alarms_all_coins():
@@ -7,7 +8,7 @@ def alarms_all_coins():
     alarms = alarm_table.values()
     zip_alarms = list(zip(coins, alarms))
     coin_list = []
-    alarm_list = []
+    alert_list = []
     get_live_prices = db_pandas.get_multiple_live_price(coins)
 
     def take_closest(num, collection):
@@ -22,6 +23,6 @@ def alarms_all_coins():
         alarm_list = zip_alarms[coin][1][1]
         closest_alarm = take_closest(get_live_prices[coin], alarm_list)
         if abs((coin_price / closest_alarm) - 1) < 0.01:
-            print("ALARM", coin_name, coin_price, closest_alarm)
-            alarm_list.append([coin_name, coin_price, closest_alarm])
-    return alarm_list
+            print("ALARM", coin_name, coin_price, closest_alarm, datetime.datetime.now())
+            alert_list.append([coin_name, coin_price, closest_alarm])
+    return alert_list
