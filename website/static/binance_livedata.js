@@ -89,11 +89,23 @@ function fetch_db_alarms() {
                 return item.replace(/['"]+/g, '');
             });
             let data_string3 = data_array2.toString();
-            let span = document.getElementById("alerts-textarea");
-            span.innerText = JSON.stringify(data_string3);
-            //get first 3 elements from array
-            // let first_3 = data_array2.slice(0, 3);
-            // console.log(first_3);
+            // let span = document.getElementById("alerts-textarea");
+            // span.innerText = data_string3;
+            // let data_array3 = [];
+            let alert_1 = document.getElementById("alert-1");
+            alert_1.innerText = data_array2.slice(0, 3).toString();
+            let alert_2 = document.getElementById("alert-2");
+            alert_2.innerText = data_array2.slice(3, 6).toString();
+            let alert_3 = document.getElementById("alert-3");
+            alert_3.innerText = data_array2.slice(6, 9).toString();
+            let alert_4 = document.getElementById("alert-4");
+            alert_4.innerText = data_array2.slice(9, 12).toString();
+            let alert_5 = document.getElementById("alert-5");
+            alert_5.innerText = data_array2.slice(12, 15).toString();
+            // for (let i = 0; i < data_array2.length; i += 3) {
+            //     data_array3.push(data_array2.slice(i, i + 3));
+            // }
+            // console.log(data_array3);
         })
     setTimeout(fetch_db_alarms, 10000);
 }

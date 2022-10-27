@@ -47,7 +47,12 @@
 		<br>
 	</form>
 	<label>
-		<textarea id="alerts-textarea" style="height: 100px;width: 200px">---</textarea>
+		<span>Alarm tracker status:</span><br>
+		<span id="alert-1">---</span><br>
+		<span id="alert-2">---</span><br>
+		<span id="alert-3">---</span><br>
+		<span id="alert-4">---</span><br>
+		<span id="alert-5">---</span><br>
 	</label>
 
 </div>
@@ -187,6 +192,8 @@
 				        value="{{ alarm }}"><span class="table-alarm" id="{{coin}}"> {{ alarm }} </span></button></td>{% endfor %}
 		</tr>
 		{% endfor %}
+	</table>
+</div>
 </body>
 <script src="{{url_for('static', filename='alarm.js')}}"></script>
 <script src="../static/binance_livedata.js"></script>
