@@ -82,8 +82,18 @@ function fetch_db_alarms() {
         .then(response => response.json())
         .then(data => {
             console.log(data);
+            let data_string = data.toString();
+            let data_string2 = data_string.replace(/[\[\]']+/g, '');
+            let data_array = data_string2.split(",");
+            let data_array2 = data_array.map(function (item) {
+                return item.replace(/['"]+/g, '');
+            });
+            let data_string3 = data_array2.toString();
             let span = document.getElementById("alerts-textarea");
-            span.innerText = JSON.stringify(data);
+            span.innerText = JSON.stringify(data_string3);
+            //get first 3 elements from array
+            // let first_3 = data_array2.slice(0, 3);
+            // console.log(first_3);
         })
     setTimeout(fetch_db_alarms, 10000);
 }
