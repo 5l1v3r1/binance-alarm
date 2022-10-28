@@ -14,6 +14,7 @@
 	<div class="autocomplete" style="width:200px;">
 		<label for="fav"></label><input id="fav" type="text" name="fav" placeholder="Ticker" autocomplete="off" required>
 	</div>
+
 		<br>
 		<input class="analyze-button round"  type="submit" name="action" value="Add Favorite">
 		<br>
@@ -47,7 +48,8 @@
 		<br>
 	</form>
 	<label>
-		<span>Alarm tracker status:</span><br>
+		<span>Alerts</span><br>
+		<span>Alert time: </span><span id="time">---</span><br>
 		<span id="alert-1">---</span><br>
 		<span id="alert-2">---</span><br>
 		<span id="alert-3">---</span><br>
@@ -60,6 +62,7 @@
 	<form action="/run_script/" method="POST">
 		<br>
 		<form autocomplete="off" action="/action_page.php">
+			<form action="/action_page.php" autocomplete="off" >
 			<div class="autocomplete" style="width:200px;">
 				<label for="myInput"></label><input id="myInput" type="text" name="ticker" placeholder="Ticker" autocomplete="off" required>
 			</div>
@@ -140,7 +143,7 @@
 
 		</form>
 	</form>
-
+	</form>
 </div>
 
 

@@ -81,31 +81,39 @@ function fetch_db_alarms() {
     fetch('/db_alarms/')
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            // console.log(data);
+            let time = new Date();
+            let time_string = time.toLocaleString();
+            let time_element = document.getElementById("time");
+            time_element.innerText = time_string;
             let data_string = data.toString();
             let data_string2 = data_string.replace(/[\[\]']+/g, '');
             let data_array = data_string2.split(",");
             let data_array2 = data_array.map(function (item) {
                 return item.replace(/['"]+/g, '');
             });
-            let data_string3 = data_array2.toString();
-            // let span = document.getElementById("alerts-textarea");
-            // span.innerText = data_string3;
-            // let data_array3 = [];
             let alert_1 = document.getElementById("alert-1");
-            alert_1.innerText = data_array2.slice(0, 3).toString();
+            alert_1.innerText = data_array2.slice(0, 4).toString();
             let alert_2 = document.getElementById("alert-2");
-            alert_2.innerText = data_array2.slice(3, 6).toString();
+            alert_2.innerText = data_array2.slice(4, 8).toString();
             let alert_3 = document.getElementById("alert-3");
-            alert_3.innerText = data_array2.slice(6, 9).toString();
+            alert_3.innerText = data_array2.slice(8, 12).toString();
             let alert_4 = document.getElementById("alert-4");
-            alert_4.innerText = data_array2.slice(9, 12).toString();
+            alert_4.innerText = data_array2.slice(12, 16).toString();
             let alert_5 = document.getElementById("alert-5");
-            alert_5.innerText = data_array2.slice(12, 15).toString();
+            alert_5.innerText = data_array2.slice(16, 20).toString();
             // for (let i = 0; i < data_array2.length; i += 3) {
             //     data_array3.push(data_array2.slice(i, i + 3));
             // }
             // console.log(data_array3);
+            // for (let i = 0; i < data_array2.length; i += 4) {
+            //     let ticker = data_array2[i];
+            //     let percent = data_array2[i + 1];
+            //     let price = data_array2[i + 2];
+            //     let alert = data_array2[i + 3];
+            //     let alarm_price = document.getElementById(id);
+            //     alarm_price.innerText = ticker + " : " + price;
+            // }
         })
     setTimeout(fetch_db_alarms, 10000);
 }

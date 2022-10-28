@@ -22,7 +22,8 @@ def alarms_all_coins():
         coin_price = get_live_prices[coin]
         alarm_list = zip_alarms[coin][1][1]
         closest_alarm = take_closest(get_live_prices[coin], alarm_list)
+        percentage = (coin_price - closest_alarm) / closest_alarm * 100
         if abs((coin_price / closest_alarm) - 1) < 0.01:
             print("ALARM", coin_name, coin_price, closest_alarm, datetime.datetime.now())
-            alert_list.append([coin_name, coin_price, closest_alarm])
+            alert_list.append([coin_name, f"{percentage:.2f}%", coin_price, closest_alarm])
     return alert_list
