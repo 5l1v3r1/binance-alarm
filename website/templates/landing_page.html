@@ -8,8 +8,8 @@
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='../static/styles.css') }}" />
 </head>
 
-<body style="background-color:#ffffff;" onload="fetch_db_alarms()">
-<div class="left-side round">
+<body style="background-color:#002a25;" onload="fetch_db_alarms()">
+<div class="left-side round" style="background: #597c76">
 	<form action="/favorite/" method="POST">
 	<div class="autocomplete" style="width:200px;">
 		<label for="fav"></label><input id="fav" type="text" name="fav" placeholder="Ticker" autocomplete="off" required>
@@ -176,7 +176,7 @@
 	</form>
 	<br>
 </div>
-<div class = "alarm-table round" style="display: inline-block;padding-left: 10px">
+<div class = "alarm-table round" style="display: inline-block">
 	<table  class="right-table round" id="coin-names" style="float: left;border-collapse:separate;">
 		<tr>
 			<th id="header-coins"> Alarms </th>

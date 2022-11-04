@@ -1,6 +1,7 @@
 .round{
     border-radius: 10px;
     border-collapse: collapse;
+    background: #597c76;
 }
 .left-side {
     float: left;
@@ -16,7 +17,7 @@
 .middle-side {
     float: left;
     display: inline-block;
-    background-color: #14554c;
+    background-color: #597c76;
     border-width: 4px;
     border-style: solid;
     border-color: #838383;
@@ -27,7 +28,7 @@
 .right-side {
     float: left;
     display: inline-block;
-    background-color: #14554c;
+    background-color: #597c76;
     border-width: 4px;
     border-style: solid;
     border-color: #838383;
